@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}magiCatWorld{% endblock %}</title>
+        {% include "_includes/head.html.twig" %}
+        {% include "_includes/stylesheets.html.twig" %}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+      <header>{% include "_includes/header.html.twig" %}</header>
+      <main>{% block body %}{% endblock %}</main>
+      <footer>{% include "_includes/footer.html.twig" %}</footer>
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>
