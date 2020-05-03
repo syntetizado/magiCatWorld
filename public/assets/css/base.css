@@ -1,0 +1,41 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html,body{
+  position: relative;
+  background-color: cyan;
+}
+
+body{
+  border: 1px solid black;
+  min-height: 100vh;
+}
+
+.header{
+  height: 100px;
+  background-color: red;
+}
+
+
+.footer {
+  border: 1px solid lime;
+  color: white;
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer-content {
+  height: 100px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.main {
+  width: 80%;
+  margin: 1% 10%;
+  border: 1px solid black;
+}

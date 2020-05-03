@@ -9,7 +9,8 @@
     </head>
     <body>
       <header>{% include "_includes/header.html.twig" %}</header>
-      <main>{% block body %}{% endblock %}</main>
+      <main><div class="main">{% block body %}{% endblock %}</div></main>
+      <div class="footer-content"></div>
       <footer>{% include "_includes/footer.html.twig" %}</footer>
     {% block javascripts %}{% endblock %}
     </body>
