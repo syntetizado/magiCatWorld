@@ -1,3 +1,20 @@
 .header{
-  
+  height: 220px;
+  position: relative;
+  background-color: #933535;
+}
+
+.logo{
+  padding: 20px;
+}
+
+.mcworld-nav{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.bg-primary{
+  background-color: #A14343 !important;
+  border-color: #933535;
 }
