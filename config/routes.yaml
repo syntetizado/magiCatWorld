@@ -3,5 +3,5 @@
 #    controller: App\Controller\DefaultController::index
 
 index:
-    path: /
+    path: /{categoria?}
     controller: App\Controller\HomeController::index

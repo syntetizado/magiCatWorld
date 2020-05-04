@@ -1,5 +1,8 @@
+{% set currentPath = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) %}
+{{dump(currentPath)}}
 <div class="header">
   <img class="logo" src="{{asset('assets/img/logo.png')}}">
+
   <div class="mcworld-nav">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
           <a class="navbar-brand" href="#">Productos</a>
@@ -9,23 +12,45 @@
 
           <div class="collapse navbar-collapse" id="page-navbar">
             <ul class="navbar-nav mr-auto">
+              {% if currentPath == "/comidaCategory" %}
               <li class="nav-item active">
-                <a class="nav-link" href="#">Comida<span class="sr-only">(current)</span></a>
-              </li>
+              {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Juguetes</a>
+              {% endif %}
+                <a class="nav-link" href="{{ path('index', { 'categoria': "comidaCategory" }) }}">Comida<span class="sr-only">(current)</span></a>
               </li>
+
+              {% if currentPath == "/juguetesCategory" %}
+              <li class="nav-item active">
+              {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Ropa</a>
+              {% endif %}
+                <a class="nav-link" href="{{ path('index', { 'categoria': "juguetesCategory" }) }}">Juguetes</a>
               </li>
+
+              {% if currentPath == "/ropaCategory" %}
+              <li class="nav-item active">
+              {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Cuidado</a>
+              {% endif %}
+                <a class="nav-link" href="{{ path('index', { 'categoria': "ropaCategory" }) }}">Ropa</a>
+              </li>
+
+              {% if currentPath == "/cuidadoCategory" %}
+              <li class="nav-item active">
+              {% else %}
+              <li class="nav-item">
+              {% endif %}
+                <a class="nav-link" href="{{ path('index', { 'categoria': "cuidadoCategory" }) }}">Cuidado</a>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Search">
               <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
+            <div class="login-area">
+              <button type="button" class="btn btn-primary btn-lg btn-block">Iniciar sesión</button>
+            </div>
           </div>
         </nav>
   </div>
