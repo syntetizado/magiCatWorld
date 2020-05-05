@@ -57,7 +57,9 @@ class CategoryTb
      *   @ORM\JoinColumn(name="id_parent_category", referencedColumnName="id")
      * })
      */
-    private $idParentCategory;
+    private $parent = [];
+
+    private $child;
 
     public function getId(): ?int
     {
@@ -112,14 +114,26 @@ class CategoryTb
         return $this;
     }
 
-    public function getIdParentCategory(): ?self
+    public function getParent(): ?self
     {
-        return $this->idParentCategory;
+        return $this->parent;
     }
 
-    public function setIdParentCategory(?self $idParentCategory): self
+    public function setParent(?self $parent): self
     {
-        $this->idParentCategory = $idParentCategory;
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getChild()
+    {
+        return $this->child;
+    }
+
+    public function addChild(?self $child): self
+    {
+        $this->child[] = $child;
 
         return $this;
     }

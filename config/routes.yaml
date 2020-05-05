@@ -3,5 +3,11 @@
 #    controller: App\Controller\DefaultController::index
 
 index:
-    path: /{categoria?}
+    path: /
     controller: App\Controller\HomeController::index
+
+category:
+    path: /categoria/{slug?}
+    controller: App\Controller\CategoryController::category
+    defaults:
+      categoria: Ropa

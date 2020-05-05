@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Productos</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="page-navbar">
+    <ul class="navbar-nav mr-auto">
+      {% for category in categories %}
+          {% set targetURL = path('category', { 'slug' : category.slug }) %}
+          {% if category.child != NULL %}
+          {% set active = false %}
+            {% for child in category.child %}
+                {% if currentPath == "/categoria/" ~ child.slug or currentPath == "/categoria/" ~ category.slug %}
+                  {% set active = true %}
+                {% endif %}
+            {% endfor %}
+
+              <li class="nav-item dropdown">
+              {% if active == true %}
+                <a class="nav-link active" href="{{targetURL}}" data-target="{{targetURL}}">
+              {% else %}
+                <a class="nav-link" href="{{targetURL}}" data-target="{{targetURL}}">
+              {% endif %}
+              <span class="dropdown-toggle nav-link">{{category.name}}<span class="caret"></span>
+              </span></a>
+
+
+
+                  <ul class="dropdown-menu">
+                {% for subcategory in category.child %}
+                    {% set targetURL = path('category', { 'slug': subcategory.slug }) %}
+                    <li><a href="{{targetURL}}">{{subcategory.name}}</a></li>
+                {% endfor %}
+            </ul>
+          {% else %}
+            {% if currentPath == "/categoria/" ~ category.slug %}
+              <li class="nav-item active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{{ path('category', { 'slug': category.slug }) }}">{{category.name}} <span class="sr-only">(current)</span></a>
+              </li>
+          {% endif %}
+      {% endfor %}
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <div class="login-area">
+      <button type="button" class="btn btn-primary btn-lg btn-block">Iniciar sesión</button>
+    </div>
+  </div>
+</nav>
