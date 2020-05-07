@@ -1,0 +1,26 @@
+.mcw-link{
+  color: #A14343;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+
+
+.mcw-link:focus {
+  background-color: #efe0e0;
+  font-weight: normal;
+}
+
+.mcw-link:active, .mcw-link:focus {
+  text-decoration: none;
+  color: #A14343;
+  outline: none;
+  border: none;
+}
+
+.mcw-link:hover{
+  text-decoration: none;
+  font-weight: bold;
+  color: #A14343
+}
