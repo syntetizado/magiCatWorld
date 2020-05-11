@@ -1,5 +1,9 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\UserTb:
+            algorithm: bcrypt
+            cost: 4
     providers:
         users_in_memory: { memory: null }
     firewalls:

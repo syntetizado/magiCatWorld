@@ -1,0 +1,80 @@
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          {% if icon is defined %}
+            {{icon | raw}}
+            {% else %}
+            ??
+          {% endif %}
+
+          {% if modalTitle is defined %}
+            {{modalTitle}}
+            {% else %}
+            titulo de modal sin definir
+          {% endif %}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         {{ form_start(form,  {'name': 'form_user_register'}) }}
+        <div class="form-row">
+          <div class="col">
+            {{ form_label(form.nick, 'Nick*', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.nick,{'attr': {"class" : "form-control"}})}}
+          </div>
+          <div class="col">
+            {{ form_label(form.email, 'Email*', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.email,{'attr': {"class" : "form-control"}})}}
+          </div>
+        </div>
+        <div class="form-row mt-3">
+          <div class="col">
+            {{ form_label(form.name, 'Nombre', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.name,{'attr': {"class" : "form-control"}})}}
+          </div>
+          <div class="col">
+            {{ form_label(form.surname1, 'Apellido 1', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.surname1,{'attr': {"class" : "form-control"}})}}
+          </div>
+          <div class="col">
+            {{ form_label(form.surname2, 'Apellido 2', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.surname2,{'attr': {"class" : "form-control"}})}}
+          </div>
+        </div>
+        <div class="form-row mt-3">
+          <div class="col">
+            {{ form_label(form.direction, 'Dirección', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.direction,{'attr': {"class" : "form-control"}})}}
+          </div>
+          <div class="col">
+            {{ form_label(form.phone, 'Teléfono', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.phone,{'attr': {"class" : "form-control"}})}}
+          </div>
+        </div>
+        <div class="form-row mt-3">
+          <div class="col">
+            {{ form_label(form.password, 'Contraseña*', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.password,{'attr': {"class" : "form-control"}})}}
+          </div>
+          <div class="col">
+            {{ form_label(form.repassword, 'Repite la contraseña*', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
+            {{ form_widget(form.repassword,{'attr': {"class" : "form-control"}})}}
+          </div>
+        </div>
+
+        <div class="mt-5 form-row">
+          Si tienes cuenta, puedes &nbsp; <a class="mcw-link" id="goLoginButton" data-toggle="modal" data-target="#loginModal" href="" data-dismiss="modal" aria-label="Close">iniciar sesión</a>
+        </div>
+      </div>
+      <div class="modal-footer" style="height: 70px">
+        <button type="submit" class="btn btn-primary">ENVIAR</button>
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+</div>

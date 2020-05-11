@@ -54,13 +54,11 @@
     </div>
 
     <div class="login-area">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Iniciar sesión</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Iniciar sesión</button>
     </div>
-
-
 
   </div>
 </nav>
 
-    {{render(controller('App\\Controller\\HomeController::registerPopup', { 'currentPath' : currentPath }))}}
-    {{render(controller('App\\Controller\\HomeController::loginPopup', { 'currentPath' : currentPath }))}}
+    {{render(controller('App\\Controller\\ModalController::registerPopup', { 'currentPath' : currentPath }))}}
+    {{render(controller('App\\Controller\\ModalController::loginPopup', { 'currentPath' : currentPath }))}}

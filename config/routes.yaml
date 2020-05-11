@@ -11,3 +11,7 @@ category:
     controller: App\Controller\CategoryController::category
     defaults:
       categoria: Ropa
+
+ajax-register:
+    path: /ajaxregister
+    controller: App\Controller\AjaxController::registerUser

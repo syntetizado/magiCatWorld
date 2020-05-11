@@ -1,7 +1,9 @@
 {% set currentPath = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) %}
 
 <div class="header">
-  <img class="logo" src="{{asset('assets/img/logo.png')}}">
+  <span class="d-none d-sm-block"><img class="logo" src="{{asset('assets/img/logo.png')}}"></span>
+  <span class="d-block d-sm-none"><img class="logo hidden-md-up" src="{{asset('assets/img/logosm.png')}}"></span>
+
   <div class="mcworld-nav">
     {{render(controller('App\\Controller\\HomeController::navbar', {'currentPath': currentPath})) }}
   </div>

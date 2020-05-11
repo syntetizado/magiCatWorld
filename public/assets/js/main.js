@@ -1,4 +1,3 @@
-
 /*
 $(document).ready(function() {
   $( "#registerButton" ).click(function(){
@@ -24,9 +23,9 @@ function register() {
 $("#registerButton").click(function(){
   $("#exampleModalCenter").hide();
   alert("funciona");
-});*/
+});
 
 function register() {
   $("#exampleModalCenter").hide();
   alert("funciona");
-}
+}*/

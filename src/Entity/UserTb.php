@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * UserTb
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user_tb")
  * @ORM\Entity
  */
-class UserTb
+class UserTb implements UserInterface
 {
     /**
      * @var int
@@ -92,11 +93,9 @@ class UserTb
     private $slug;
 
     /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="register_date", type="date", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="string", length=65)
      */
-    private $registerDate = 'CURRENT_TIMESTAMP';
+    private $rol;
 
     public function getId(): ?int
     {
@@ -223,17 +222,32 @@ class UserTb
         return $this;
     }
 
-    public function getRegisterDate(): ?\DateTimeInterface
+    public function getRol(): ?string
     {
-        return $this->registerDate;
+        return $this->rol;
     }
 
-    public function setRegisterDate(?\DateTimeInterface $registerDate): self
+    public function setRol(string $rol): self
     {
-        $this->registerDate = $registerDate;
+        $this->rol = $rol;
 
         return $this;
     }
 
+    public function getUserName(){
+        return $this->email;
+    }
 
+    public function getSalt(){
+        return null;
+    }
+
+    public function getRoles(){
+        return array(
+            'ROLE_USER','ROLE_ADMIN'
+        );
+    }
+
+    public function eraseCredentials(){
+    }
 }
