@@ -59,4 +59,14 @@ class ModalController extends AbstractController
             'message_icon' => 'icono exito'
         ]);
     }
+
+    public function infoPopup($message, $modalTitle, $icon, $toggle = NULL){
+
+        return $this->render('modal/infoPopup.html.twig', [
+            'modalTitle' => $modalTitle,
+            'icon' => $icon,
+            'message' => $message,
+            'toggle' => $toggle
+        ]);
+    }
 }

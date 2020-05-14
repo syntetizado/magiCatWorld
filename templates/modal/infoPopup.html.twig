@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+            {% if icon is defined %}
+                {{icon | raw}}
+            {% else %}
+                ??
+            {% endif %}
+
+            {% if modalTitle is defined %}
+                {{modalTitle}}
+            {% else %}
+                titulo de modal sin definir
+            {% endif %}
+        </h5>
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            {% if message is defined %}
+                {{message}}
+            {% else %}
+                cuerpo del modal sin definir
+            {% endif %}
+      </div>
+      <div class="modal-footer" style="height: 70px">
+        {% if toggle is defined %}
+            {% if toggle == "register" %}
+                <button id="gotoRegister" type="button" class="btn btn-primary" data-toggle="modal" data-target"#registerModal" >volver</button>
+            {% endif %}
+            {% if toggle == "login" %}
+                <button id="gotoLogin" type="button" class="btn btn-primary" >iniciar sesión</button>
+            {% endif %}
+        {% else %}
+            <button type="button" class="btn btn-primary" data-dismiss="modal" >OK serrar</button>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+</div>

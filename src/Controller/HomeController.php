@@ -45,4 +45,10 @@ class HomeController extends AbstractController
             'currentPath' => $currentPath
         ]);
     }
+
+    public function notFound(){
+        return $this->render('home/error.html.twig', [
+            'message' => 'La ruta especificada no existe'
+        ]);
+    }
 }

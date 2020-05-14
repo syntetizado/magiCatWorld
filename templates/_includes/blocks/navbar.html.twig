@@ -55,6 +55,7 @@
 
     <div class="login-area">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Iniciar sesión</button>
+      <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoModal">modal peke</button>-->
     </div>
 
   </div>
@@ -62,3 +63,5 @@
 
     {{render(controller('App\\Controller\\ModalController::registerPopup', { 'currentPath' : currentPath }))}}
     {{render(controller('App\\Controller\\ModalController::loginPopup', { 'currentPath' : currentPath }))}}
+<!-- Modal -->
+<div id="information"></div>

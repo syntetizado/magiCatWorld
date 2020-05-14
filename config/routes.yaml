@@ -15,3 +15,7 @@ category:
 ajax-register:
     path: /ajaxregister
     controller: App\Controller\AjaxController::registerUser
+
+not-found:
+    path: /error
+    controller: App\Controller\HomeController::notFound

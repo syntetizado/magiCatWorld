@@ -11,9 +11,20 @@ $('form[name="form_user_register"]').submit(function(e) {
 		type: "POST",
 		url: "ajaxregister",
 		data: form.serialize(), // serializes the form's elements.
+        dataType: ('html'),
 		success: function(data)
 		{
-		   alert(data); // show response from the php script.
+            $('#information').html(data);
+            $('#registerModal').modal('toggle');
+            $('#infoModal').modal('toggle');
+            $('#gotoLogin').click( function(){
+                    $('#infoModal').modal('toggle');
+                    $('#loginModal').modal('toggle');
+                });
+            $('#gotoRegister').click( function(){
+                    $('#infoModal').modal('toggle');
+                    $('#registerModal').modal('toggle');
+                });
 		}
     })
 	;

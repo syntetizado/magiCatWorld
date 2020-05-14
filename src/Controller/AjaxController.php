@@ -30,15 +30,11 @@ class AjaxController extends AbstractController
     */
 
     public function registerUser(UserPasswordEncoderInterface $encoder, Request $request){
+        $response = new Response();
 
-        /*if (!$request->isXmlHttpRequest()) {
-    return new JsonResponse(array(
-        'status' => 'Error',
-        'message' => 'Error'),
-    400);
-}*/
-         // Ajax request
+        // Ajax request
         if ($request->isXmlHttpRequest()) {
+            $error = false;
 
             $form = $this->createFormBuilder()
                 ->add('nick', TextType::class)
@@ -61,49 +57,82 @@ class AjaxController extends AbstractController
 
                 if ($user_repo->findBy(['email' => $form->get('email')->getData()])){
 
-                    /*return $this->render('modal/messagePopupModal.html.twig', [
-                        'controller_name' => 'ModalController',
-                        'modalTitle' => "Registro de usuario",
-                        'message' => 'Ya existe un usuario con este email.',
-                        'message_icon' => 'EMAIL_EXISTS_ICON'
-                    ];*/
+                    $response = $this->forward('App\Controller\ModalController::infoPopup', [
+                        'modalTitle' => 'Error',
+                        'icon' => '<i class="fas fa-times text-danger"></i>',
+                        'message' => 'El email ya existe',
+                        'toggle' => 'register'
+                    ]);
+                    return $response;
+                }
+
+                if ($user_repo->findBy(['nick' => $form->get('nick')->getData()])){
+
+                    $response = $this->forward('App\Controller\ModalController::infoPopup', [
+                        'modalTitle' => 'Error',
+                        'icon' => '<i class="fas fa-times text-danger"></i>',
+                        'message' => 'El nick ya existe',
+                        'toggle' => 'register'
+                    ]);
+                    return $response;
                 }
 
                 if ($pass != $cPass){
-                    /*return [
-                        'controller_name' => 'ModalController',
-                        'modalTitle' => "Iniciar Sesión",
-                        'message' => 'Las contraseñas no son iguales'
-                    ];*/
-                    return new Response();
+                    $response = $this->forward('App\Controller\ModalController::infoPopup', [
+                        'modalTitle' => $form->get('nick')->getData(),
+                        'icon' => '<i class="fas fa-times text-danger"></i>',
+                        'message' => 'Las contraseñas no coinciden',
+                        'toggle' => 'register'
+                    ]);
+                    $error = true;
+                    return $response;
                 }
 
-                $user = new UserTb();
-                $user
-                    ->setEmail($form->get('email')->getData())
-                    ->setName($form->get('name')->getData())
-                    ->setSurname1($form->get('surname1')->getData())
-                    ->setSurname2($form->get('surname2')->getData())
-                    ->setDirection($form->get('direction')->getData())
-                    ->setNick($form->get('nick')->getData())
-                    ->setPassword($form->get('password')->getData())
-                    ->setRol('ROLE_USER')
-                    ->setImage('user-default.jpg');
+                if ($error == false){
+                    $user = new UserTb();
+                    $user
+                        ->setEmail($form->get('email')->getData())
+                        ->setName($form->get('name')->getData())
+                        ->setSurname1($form->get('surname1')->getData())
+                        ->setSurname2($form->get('surname2')->getData())
+                        ->setDirection($form->get('direction')->getData())
+                        ->setNick($form->get('nick')->getData())
+                        ->setPassword($form->get('password')->getData())
+                        ->setRol('ROLE_USER')
+                        ->setImage('user-default.jpg');
 
-                $encodedPw = $encoder->encodePassword($user, $user->getPassword());
-                $user->setPassword($encodedPw);
+                    $encodedPw = $encoder->encodePassword($user, $user->getPassword());
+                    $user->setPassword($encodedPw);
 
-                $entityManager= $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-                return new Response();
+                    $entityManager= $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                }
+
+                $response = $this->forward('App\Controller\ModalController::infoPopup', [
+                    'modalTitle' => 'Usuario registrado con éxito',
+                    'icon' => '<i class="fas fa-check text-success"></i>',
+                    'message' => 'Ahora puedes iniciar sesión',
+                    'toggle' => 'login'
+                ]);
+                return $response;
             } else {
-                return new Response();
+                $response = $this->forward('App\Controller\ModalController::infoPopup', [
+                    'modalTitle' => 'Error',
+                    'icon' => '<i class="fas fa-times text-danger"></i>',
+                    'message' => 'Error al enviar el formulario',
+                ]);
+                return $response;
             }
-
-
         } else {
-            return new Response();
+            if ($pass != $cPass){
+                $response = $this->forward('App\Controller\ModalController::infoPopup', [
+                    'modalTitle' => 'Error',
+                    'icon' => '<i class="fas fa-times text-danger"></i>',
+                    'message' => 'Error al enviar el formulario',
+                ]);
+            return $response;
+            }
         }
     }
 }
