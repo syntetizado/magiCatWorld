@@ -121,6 +121,7 @@ class AjaxController extends AbstractController
                     'modalTitle' => 'Error',
                     'icon' => '<i class="fas fa-times text-danger"></i>',
                     'message' => 'Error al enviar el formulario',
+                    'toggle' => ''
                 ]);
                 return $response;
             }
@@ -130,9 +131,20 @@ class AjaxController extends AbstractController
                     'modalTitle' => 'Error',
                     'icon' => '<i class="fas fa-times text-danger"></i>',
                     'message' => 'Error al enviar el formulario',
+                    'toggle' => ''
                 ]);
             return $response;
             }
         }
+    }
+
+    public function logUser(Request $request){
+            $response = $this->forward('App\Controller\ModalController::infoPopup', [
+                'modalTitle' => 'Error',
+                'icon' => '<i class="fas fa-times text-danger"></i>',
+                'message' => '$request',
+                'toggle' => 'register'
+            ]);
+            return $response;
     }
 }

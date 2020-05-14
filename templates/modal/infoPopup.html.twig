@@ -28,17 +28,15 @@
             {% endif %}
       </div>
       <div class="modal-footer" style="height: 70px">
-        {% if toggle is defined %}
             {% if toggle == "register" %}
                 <button id="gotoRegister" type="button" class="btn btn-primary" data-toggle="modal" data-target"#registerModal" >volver</button>
             {% endif %}
             {% if toggle == "login" %}
                 <button id="gotoLogin" type="button" class="btn btn-primary" >iniciar sesión</button>
             {% endif %}
-        {% else %}
-            <button type="button" class="btn btn-primary" data-dismiss="modal" >OK serrar</button>
-        {% endif %}
-
+            {% if toggle == "" %}
+                <button type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
+            {% endif %}
       </div>
     </div>
   </div>

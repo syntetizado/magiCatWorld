@@ -2,6 +2,7 @@
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
+        {{ form_start(form,  {'name': 'form_user_login'}) }}
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">
           {% if icon is defined %}
@@ -21,6 +22,7 @@
         </button>
       </div>
       <div class="modal-body">
+
         <div class="form-row">
           <div class="col">
             {{ form_label(form.nick, 'Nick', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
@@ -36,8 +38,9 @@
         </div>
       </div>
       <div class="modal-footer" style="height: 70px">
-        <button type="button" class="btn btn-primary" >ENVIAR</button>
+        <button type="submit" class="btn btn-primary" >ENVIAR</button>
       </div>
+      {{ form_end(form) }}
     </div>
   </div>
 

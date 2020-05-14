@@ -16,6 +16,10 @@ ajax-register:
     path: /ajaxregister
     controller: App\Controller\AjaxController::registerUser
 
+ajax-login:
+    path: /ajaxlogin
+    controller: App\Controller\AjaxController::logUser
+
 not-found:
     path: /error
     controller: App\Controller\HomeController::notFound

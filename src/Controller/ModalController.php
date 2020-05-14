@@ -60,7 +60,7 @@ class ModalController extends AbstractController
         ]);
     }
 
-    public function infoPopup($message, $modalTitle, $icon, $toggle = NULL){
+    public function infoPopup($message, $modalTitle, $icon, $toggle){
 
         return $this->render('modal/infoPopup.html.twig', [
             'modalTitle' => $modalTitle,
