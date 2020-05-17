@@ -1,15 +1,9 @@
 .footer {
   background-color: #311a1a;
   color: white;
-  position: absolute;
   height: 100px;
-  width: 100%;
-  bottom: 0;
-}
 
-.footer-pusher {
-  height: 100px;
-  width: 100%;
+  position: sticky;
 }
 
 .footer-options {

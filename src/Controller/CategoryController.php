@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 //Importamos las entidades
 use App\Entity\CategoryTb;
+use App\Entity\ProductTb;
 
 class CategoryController extends AbstractController
 {
@@ -21,9 +22,13 @@ class CategoryController extends AbstractController
           ]);
         }
 
+        $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
+        $products = $product_repo->findBy(['id' => $category]);
+
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',
-            'category' => $category
+            'category' => $category,
+            'products' => $products
         ]);
-      }
+    }
 }

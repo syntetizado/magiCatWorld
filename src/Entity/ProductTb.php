@@ -78,7 +78,9 @@ class ProductTb
      *   @ORM\JoinColumn(name="id_category", referencedColumnName="id")
      * })
      */
-    private $idCategory;
+    private $category;
+
+    private $child;
 
     public function getId(): ?int
     {
@@ -169,14 +171,14 @@ class ProductTb
         return $this;
     }
 
-    public function getIdCategory(): ?CategoryTb
+    public function getCategory(): ?CategoryTb
     {
-        return $this->idCategory;
+        return $this->category;
     }
 
-    public function setIdCategory(?CategoryTb $idCategory): self
+    public function setIdCategory(?CategoryTb $category): self
     {
-        $this->idCategory = $idCategory;
+        $this->category = $category;
 
         return $this;
     }

@@ -26,7 +26,7 @@
   --white: #fff;
   --gray: #999;
   --gray-dark: #333;
-  --primary: #158CBA;
+  --primary: #774646;
   --secondary: #f0f0f0;
   --success: #28B62C;
   --info: #75CAEB;
@@ -10564,7 +10564,7 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #158CBA !important;
+  color: #774646 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -10833,7 +10833,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .text-secondary {
-  color: #555 !important;
+  color: #f0f0f0 !important;
 }
 
 .blockquote-footer {

@@ -1,0 +1,27 @@
+{% if products is defined %}
+<div class="container-fluid justify-content-center">
+	<div class="row justify-content-center">
+			{% for product in products %}
+			<div class="col-3 mt-4 d-none d-sm-none d-md-none d-lg-none d-xl-block">
+				{{render(controller('App\\Controller\\ProductController::productCardTrimDesc',{'product' : product})) }}
+			</div>
+			{% endfor %}
+	</div>
+	<div class="row justify-content-center">
+		{% for product in products %}
+		<div class="col-6 mt-4 d-none d-sm-none d-md-block d-lg-block d-xl-none">
+			{% include '_includes/blocks/product-card.html.twig' with {'product' : product} %}
+		</div>
+		{% endfor %}
+	</div>
+	<div class="row justify-content-center">
+		{% for product in products %}
+		<div class="col-12 mt-4 d-show d-sm-block d-md-none d-lg-none d-xl-none">
+			{% include '_includes/blocks/product-card.html.twig' with {'product' : product} %}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% else %}
+Error: productos no definido
+{% endif %}
