@@ -69,4 +69,12 @@ class ModalController extends AbstractController
             'toggle' => $toggle
         ]);
     }
+
+    public function userPopup(){
+
+        return $this->render('modal/userPopup.html.twig', [
+            'modalTitle' => 'Datos de usuario',
+            'icon' => "<i class='fas fa-user'></i>",
+        ]);
+    }
 }

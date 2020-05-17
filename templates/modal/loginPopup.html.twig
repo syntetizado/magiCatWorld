@@ -1,47 +1,43 @@
 <!-- Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        {{ form_start(form,  {'name': 'form_user_login'}) }}
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">
-          {% if icon is defined %}
-            {{icon | raw}}
-            {% else %}
-            ??
-          {% endif %}
-
-          {% if modalTitle is defined %}
-            {{modalTitle}}
-            {% else %}
-            titulo de modal sin definir
-          {% endif %}
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <div class="form-row">
-          <div class="col">
-            {{ form_label(form.nick, 'Nick', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
-            {{ form_widget(form.nick,{'attr': {"class" : "form-control"}})}}
-          </div>
-          <div class="col">
-            {{ form_label(form.password, 'Password', {'label_attr': {"class" : "font-weight-light mx-1"}})}}
-            {{ form_widget(form.password,{'attr': {"class" : "form-control"}})}}
-          </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    {% if icon is defined %}
+                        {{icon | raw}}
+                    {% else %}
+                        ??
+                    {% endif %}
+                    {% if modalTitle is defined %}
+                        {{modalTitle}}
+                    {% else %}
+                        titulo de modal sin definir
+                    {% endif %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{path('login')}}" method="post">
+            <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col">
+                            <input class="form-control col-12" type="text" name="_username" id="username">
+                        </div>
+                        <div class="col">
+                            <input class="form-control col-12" type="password" name="_password" id="password">
+                        </div>
+                    </div>
+                    <div class="mt-5 form-row">
+                      ¿No tienes cuenta? &nbsp; <a class="mcw-link" id="goRegisterButton" data-toggle="modal" data-target="#registerModal" href="" data-dismiss="modal" aria-label="Close">Crea tu cuenta gratis</a>
+                    </div>
+            </div>
+            <div class="modal-footer" style="height: 70px">
+                <button class="btn btn-primary" type="submit" name="button">Enviar</button>
+            </div>
+            </form>
         </div>
-        <div class="mt-5 form-row">
-          ¿No tienes cuenta? &nbsp; <a class="mcw-link" id="goRegisterButton" data-toggle="modal" data-target="#registerModal" href="" data-dismiss="modal" aria-label="Close">Crea tu cuenta gratis</a>
-        </div>
-      </div>
-      <div class="modal-footer" style="height: 70px">
-        <button type="submit" class="btn btn-primary" >ENVIAR</button>
-      </div>
-      {{ form_end(form) }}
     </div>
-  </div>
 
 </div>

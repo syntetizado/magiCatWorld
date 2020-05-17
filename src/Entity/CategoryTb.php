@@ -24,6 +24,13 @@ class CategoryTb
     /**
      * @var string|null
      *
+     * @ORM\Column(name="parent_slug", type="string", length=60, nullable=true)
+     */
+    private $parent_slug;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="name", type="string", length=60, nullable=true)
      */
     private $name;
@@ -49,21 +56,23 @@ class CategoryTb
      */
     private $slug;
 
-    /**
-     * @var \CategoryTb
-     *
-     * @ORM\ManyToOne(targetEntity="CategoryTb")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_parent_category", referencedColumnName="id")
-     * })
-     */
-    private $parent = [];
-
-    private $child;
+    private $child=[];
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getParentSlug(): ?string
+    {
+        return $this->parent_slug;
+    }
+
+    public function setParentSlug(?string $parent_slug): self
+    {
+        $this->name = $parent_slug;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -131,7 +140,7 @@ class CategoryTb
         return $this->child;
     }
 
-    public function addChild(?self $child): self
+    public function addChild(string $child)
     {
         $this->child[] = $child;
 

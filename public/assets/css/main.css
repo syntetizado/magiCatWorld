@@ -1,26 +1,46 @@
 .mcw-link{
-  color: #A14343;
-  background-color: transparent;
-  border: none;
-  outline: none;
+    color: #A14343;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
 
-
-
 .mcw-link:focus {
-  background-color: #efe0e0;
-  font-weight: normal;
+    background-color: #efe0e0;
+    font-weight: normal;
 }
 
 .mcw-link:active, .mcw-link:focus {
-  text-decoration: none;
-  color: #A14343;
-  outline: none;
-  border: none;
+    text-decoration: none;
+    color: #A14343;
+    outline: none;
+    border: none;
 }
 
 .mcw-link:hover{
-  text-decoration: none;
-  font-weight: bold;
-  color: #A14343
+    text-decoration: none;
+    font-weight: bold;
+    color: #A14343
+}
+
+.bg-terciary{
+    background-color: #311a1a;
+}
+
+.text-terciary{
+    color: #a14343;
+}
+
+.card {
+    box-shadow: 2px 2px 5px 0px black;
+    z-index: -50;
+}
+
+.http-error-number {
+    font-size: 30vh;
+}
+
+.http-error-text {
+    margin-top: -1vmin;
+    font-size: 8vmin;
 }

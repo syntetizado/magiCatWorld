@@ -7,43 +7,45 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <!-- Esto crea los botones de las categorias a partir de la BD -->
-      {% for category in categories %}
-          {% set targetURL = path('category', { 'slug' : category.slug }) %}
-          {% if category.child != NULL %}
-          {% set active = false %}
-            {% for child in category.child %}
-                {% if currentPath == "/categoria/" ~ child.slug or currentPath == "/categoria/" ~ category.slug %}
-                  {% set active = true %}
+        <!-- Esto crea los botones de las categorias a partir de la BD -->
+        {% for category in categories %}
+            {% set targetURL = path('category', { 'slug' : category.slug }) %}
+            {% set active = false %}
+
+            {% if category.child != NULL %}
+                {% for childslug in category.child %}
+                    {% if currentPath == "/categoria/" ~ childslug or currentPath == "/categoria/" ~ category.slug %}
+                        {% set active = true %}
+                    {% endif %}
+                {% endfor %}
+                    <li class="nav-item dropdown">
+                {% if active == true %}
+                    <a class="nav-link active" href="{{targetURL}}" data-target="{{targetURL}}">
+                {% else %}
+                    <a class="nav-link" href="{{targetURL}}" data-target="{{targetURL}}">
                 {% endif %}
-            {% endfor %}
+                        <span class="dropdown-toggle nav-link">{{category.name}}
+                            <span class="caret"></span>
+                        </span>
+                    </a>
 
-            <li class="nav-item dropdown">
-            {% if active == true %}
-              <a class="nav-link active" href="{{targetURL}}" data-target="{{targetURL}}">
-            {% else %}
-              <a class="nav-link" href="{{targetURL}}" data-target="{{targetURL}}">
-            {% endif %}
-            <span class="dropdown-toggle nav-link">{{category.name}}<span class="caret"></span>
-            </span></a>
-
-            <ul class="dropdown-menu">
-              {% for subcategory in category.child %}
-                {% set targetURL = path('category', { 'slug': subcategory.slug }) %}
-                <li><a href="{{targetURL}}">{{subcategory.name}}</a></li>
-              {% endfor %}
-            </ul>
+                <ul class="dropdown-menu">
+                    {% for childslug in category.child %}
+                        {% set targetURL = path('category', { 'slug': childslug }) %}
+                        <li><a href="{{targetURL}}">{{childslug}}</a></li>
+                    {% endfor %}
+                </ul>
 
             {% else %}
-              {% if currentPath == "/categoria/" ~ category.slug %}
-                <li class="nav-item active">
-              {% else %}
-                <li class="nav-item">
-              {% endif %}
-                  <a class="nav-link" href="{{ path('category', { 'slug': category.slug }) }}">{{category.name}} <span class="sr-only">(current)</span></a>
-                </li>
+                {% if currentPath == "/categoria/" ~ category.slug %}
+                    <li class="nav-item active">
+                {% else %}
+                    <li class="nav-item">
+                {% endif %}
+                    <a class="nav-link" href="{{ path('category', { 'slug': category.slug }) }}">{{category.name}} <span class="sr-only">(current)</span></a>
+                    </li>
             {% endif %}
-      {% endfor %}
+        {% endfor %}
     </ul>
 
     <div class="search-area">
@@ -54,8 +56,17 @@
     </div>
 
     <div class="login-area">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Iniciar sesión</button>
-      <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoModal">modal peke</button>-->
+        {% if app.user %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">
+            <div class="row">
+                <span class="ml-2 mr-3 my-auto">{{app.user.nick}}</span>
+                <img class="login-area-image mr-2" src="{{asset('assets/img/user/') ~ app.user.image}}">
+            </div>
+
+        </button>
+        {% else %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Iniciar sesión</button>
+        {% endif %}
     </div>
 
   </div>
@@ -63,5 +74,6 @@
 
     {{render(controller('App\\Controller\\ModalController::registerPopup', { 'currentPath' : currentPath }))}}
     {{render(controller('App\\Controller\\ModalController::loginPopup', { 'currentPath' : currentPath }))}}
+    {{render(controller('App\\Controller\\ModalController::userPopup', { 'currentPath' : currentPath }))}}
 <!-- Modal -->
 <div id="information"></div>

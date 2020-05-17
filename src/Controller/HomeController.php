@@ -24,7 +24,7 @@ class HomeController extends AbstractController
         $categories=[]; $subcategories=[];
 
         foreach ($search as $category) {
-            if ($category->getParent() == NULL) {
+            if ($category->getParentSlug() == NULL) {
                 $categories[] = $category;
             } else {
                 $subcategories[] = $category;
@@ -33,8 +33,8 @@ class HomeController extends AbstractController
 
         foreach ($subcategories as $subcategory) {
           foreach ($categories as $category) {
-            if ($subcategory->getParent() == $category){
-                $category->addChild($subcategory);
+            if ($subcategory->getParentSlug() == $category->getSlug()){
+                $category->addChild($subcategory->getSlug());
             }
           }
         }

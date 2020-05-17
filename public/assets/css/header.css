@@ -1,5 +1,5 @@
 .header{
-  height: 160px;
+  height: 175px;
   position: relative;
   background-color: #933535;
 }
@@ -74,4 +74,17 @@
 
 .active {
   color: white !important;
+}
+
+.login-area-image{
+    height: 2em;
+    border-radius: 25%;
+}
+
+.modal-lines-header {
+ border-bottom: 1px dotted #311a1a;
+ }
+
+.modal-lines-footer {
+ border-top: 1px dotted #311a1a;
 }

@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{category.name}}{% endblock %}
+{% block title %}
+{{category.name}}
+{% endblock %}
 
 {% block body %}
-<h1>{{category.name}}</h1>
+<h1 class="text-center"><b>Categoría {{category.name}}</b> </h1>
+{% include '_includes/blocks/products.html.twig' with {'products' : products} %}
+
 {% endblock %}

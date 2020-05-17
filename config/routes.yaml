@@ -12,6 +12,10 @@ category:
     defaults:
       categoria: Ropa
 
+product:
+    path: /producto/{slug?}
+    controller: App\Controller\ProductController::product
+
 ajax-register:
     path: /ajaxregister
     controller: App\Controller\AjaxController::registerUser
@@ -23,3 +27,10 @@ ajax-login:
 not-found:
     path: /error
     controller: App\Controller\HomeController::notFound
+
+login:
+    path: /login
+    controller: App\Controller\UserController::login
+
+logout:
+    path: /logout

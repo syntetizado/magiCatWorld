@@ -1,0 +1,146 @@
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-lines-header">
+        <h5 class="modal-title " id="exampleModalLongTitle">
+          {% if icon is defined %}
+            {{icon | raw}}
+            {% else %}
+            ??
+          {% endif %}
+
+          {% if modalTitle is defined %}
+            {{modalTitle}}
+            {% else %}
+            titulo de modal sin definir
+          {% endif %}
+
+
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3 pt-2 px-0">
+            {% if app.user %}
+                <div class="row px-4 py-2 mx-0 bg-secondary">
+                    <div class="col-4 btn btn-primary px-2 py-1">
+                        {% if app.user.image == "user-default.png" %}
+                        personalizar
+                        {% endif %}
+                      <img class="img-fluid mx-0" src="{{asset('assets/img/user/') ~ app.user.image}}">
+                    </div>
+                    <div class="col-4 my-auto text-left">
+                        <h3 class="text-muted">Usuario </h3>
+                        <h1 class="ml-4"><b>{{app.user.nick}}</b> </h1>
+                    </div>
+                </div>
+                <div class="bg-secondary px-4 mx-0">
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="row">
+                                <h3 class="text-muted">Correo </h3>
+                            </div>
+                            <div class="row">
+                                <h4 class="ml-4">{{app.user.email}}</h4>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <h3 class="text-muted">Nombre </h3>
+                            </div>
+                            <div class="row">
+                                <h4 class="ml-4">
+                                    {% if app.user.name == "" %}
+                                        ...
+                                    {% else %}
+                                        {{app.user.name}}
+                                    {% endif %}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="row">
+                                <h3 class="text-muted">
+                                    {% if app.user.surname1 == "" %}
+                                    {% if app.user.surname2 == "" %}
+                                        Apellidos
+                                    {% endif %}{% endif %}
+                                    {% if app.user.surname1 == "" %}
+                                    {% if app.user.surname2 != "" %}
+                                        Segundo apellido
+                                    {% endif %}{% endif %}
+                                    {% if app.user.surname1 != "" %}
+                                    {% if app.user.surname2 == "" %}
+                                        Primer apellido
+                                    {% endif %}{% endif %}
+                                    {% if app.user.surname1 != "" %}
+                                    {% if app.user.surname2 != "" %}
+                                        Apellidos
+                                    {% endif %}{% endif %}
+                                </h3>
+                            </div>
+                            <div class="row">
+                                <h4 class="ml-4">
+                                    {% if app.user.surname1 == "" %}
+                                    {% if app.user.surname2 == "" %}
+                                        ...
+                                    {% endif %}{% endif %}
+                                    {% if app.user.surname1 == "" %}
+                                    {% if app.user.surname2 != "" %}
+                                        {{app.user.surname2}}
+                                    {% endif %}{% endif %}
+                                    {% if app.user.surname1 != "" %}
+                                    {% if app.user.surname2 == "" %}
+                                        {{app.user.surname1}}
+                                    {% endif %}{% endif %}
+                                    {% if app.user.surname1 != "" %}
+                                    {% if app.user.surname2 != "" %}
+                                        {{app.user.surname1}}&nbsp;{{app.user.surname2}}
+                                    {% endif %}{% endif %}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="row">
+                                <h3 class="text-muted">Dirección</h3>
+                            </div>
+                            <div class="row">
+                                <h4 class="ml-4">
+                                    {% if app.user.direction == "" %}
+                                        ...
+                                    {% else %}
+                                        {{app.user.direction}}
+                                    {% endif %}
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <h3 class="text-muted">Teléfono</h3>
+                            </div>
+                            <div class="row">
+                                <h4 class="ml-4">
+                                    {% if app.user.phone == "" %}
+                                        ...
+                                    {% else %}
+                                        {{app.user.phone}}
+                                    {% endif %}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+      </div>
+      <div class="modal-footer modal-lines-footer" style="height: 70px">
+        <button type="button" class="btn btn-primary" href="{{path('logout')}}">CERRAR SESIÓN</button>
+      </div>
+    </div>
+  </div>
+</div>

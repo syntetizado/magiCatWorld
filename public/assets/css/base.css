@@ -1,25 +1,18 @@
 *{
-  margin: 0;
-  padding: 0;
-}
-
-html,body{
-
+    margin: 0;
+    padding: 0;
 }
 
 body{
-  min-height: 100vh;
-  background-color: #f4f4f4;
+    background-color: #311a1a;
 }
-
-.main {
-  width: 98%;
-  margin: 1% 1%;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: justify;
-}
-
-.card {
-  box-shadow: 2px 2px 5px 0px black;
+/*275px*/
+main {
+    min-height: calc(100vh - 275px);
+    width: 100;
+    padding: 10px;
+    text-align: justify;
+    background-color: #f4f4f4;
+    position: relative;
+    z-index: -100;
 }

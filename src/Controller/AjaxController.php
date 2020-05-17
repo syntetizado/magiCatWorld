@@ -99,7 +99,7 @@ class AjaxController extends AbstractController
                         ->setNick($form->get('nick')->getData())
                         ->setPassword($form->get('password')->getData())
                         ->setRol('ROLE_USER')
-                        ->setImage('user-default.jpg');
+                        ->setImage('user-default.png');
 
                     $encodedPw = $encoder->encodePassword($user, $user->getPassword());
                     $user->setPassword($encodedPw);

@@ -1,1 +1,19 @@
-<h1>{{message}}</h1>
+{% extends 'base.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+
+	<div class="col text-center">
+		<h1 class="http-error-number">{{number}}</h1>
+	</div>
+	<div class="col text-center">
+
+		<h1 class="http-error-text"><b>{{message}}</b></h1>
+	</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
