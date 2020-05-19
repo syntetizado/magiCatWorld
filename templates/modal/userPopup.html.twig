@@ -35,6 +35,12 @@
                         <h3 class="text-muted">Usuario </h3>
                         <h1 class="ml-4"><b>{{app.user.nick}}</b> </h1>
                     </div>
+                    {% if app.user.rol == 'ROLE_ADMIN' %}
+                    <div class="col">
+                        <a href="{{path('admin')}}"><button class="btn btn-primary">Panel de admin</button></a>
+                    </div>
+                    {% endif %}
+
                 </div>
                 <div class="bg-secondary px-4 mx-0">
                     <div class="row mt-3">
@@ -139,7 +145,7 @@
             {% endif %}
       </div>
       <div class="modal-footer modal-lines-footer" style="height: 70px">
-        <button type="button" class="btn btn-primary" href="{{path('logout')}}">CERRAR SESIÓN</button>
+        <a href="{{path('logout')}}"> <button type="button" class="btn btn-primary" >CERRAR SESIÓN</button></a>
       </div>
     </div>
   </div>

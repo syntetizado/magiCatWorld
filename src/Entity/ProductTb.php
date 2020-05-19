@@ -176,7 +176,7 @@ class ProductTb
         return $this->category;
     }
 
-    public function setIdCategory(?CategoryTb $category): self
+    public function setCategory(?CategoryTb $category): self
     {
         $this->category = $category;
 

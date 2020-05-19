@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}magiCatWorld{% endblock %}</title>
+        {% include "_includes/head.html.twig" %}
+        {% include "_includes/stylesheets.html.twig" %}
+        {% block stylesheets %}{% endblock %}
+        <style media="screen">
+            body {
+                background-color: #f4f4f4;
+            }
+        </style>
+    </head>
+    <body>
+      <header>{% include "_includes/adminHeader.html.twig" %}</header>
+      <main>{% block body %}{% endblock %}</main>
+    {% block javascripts %}{% endblock %}
+    {% include "_includes/javascripts.html.twig" %}
+    </body>
+</html>

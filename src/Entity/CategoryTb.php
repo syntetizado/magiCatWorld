@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CategoryTb
  *
- * @ORM\Table(name="category_tb", indexes={@ORM\Index(name="categorytb_parentfk", columns={"id_parent_category"})})
+ * @ORM\Table(name="category_tb")
  * @ORM\Entity
  */
 class CategoryTb

@@ -33,7 +33,12 @@
 
 .card {
     box-shadow: 2px 2px 5px 0px black;
-    z-index: -50;
+    z-index: 1;
+}
+
+nav {
+    box-shadow: 0;
+    z-index: 2;
 }
 
 .http-error-number {
@@ -43,4 +48,17 @@
 .http-error-text {
     margin-top: -1vmin;
     font-size: 8vmin;
+}
+
+.admin-btn{
+    height:100%;
+    width:100%;
+}
+
+.admin-btn p{
+    font-size: calc(1vw + 10px);
+}
+
+.admin-btn-container{
+    height: calc(10vw + 50px);
 }

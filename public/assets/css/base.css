@@ -13,6 +13,4 @@ main {
     padding: 10px;
     text-align: justify;
     background-color: #f4f4f4;
-    position: relative;
-    z-index: -100;
 }

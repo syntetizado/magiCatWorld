@@ -34,3 +34,35 @@ login:
 
 logout:
     path: /logout
+
+########################################################
+######################## ADMIN #########################
+########################################################
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::index
+
+admin-users:
+    path: /admin/usuarios
+    controller: App\Controller\AdminController::index
+
+admin-products:
+    path: /admin/productos
+    controller: App\Controller\AdminController::index
+
+admin-reviews:
+    path: /admin/opiniones
+    controller: App\Controller\AdminController::index
+
+admin-orders:
+    path: /admin/ordenes
+    controller: App\Controller\AdminController::index
+
+admin-messages:
+    path: /admin/mensajes
+    controller: App\Controller\AdminController::index
+
+admin-categories:
+    path: /admin/categorias
+    controller: App\Controller\AdminController::index

@@ -23,7 +23,7 @@ class CategoryController extends AbstractController
         }
 
         $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
-        $products = $product_repo->findBy(['id' => $category]);
+        $products = $product_repo->findBy(['category' => $category]);
 
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',

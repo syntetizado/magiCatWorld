@@ -1,0 +1,42 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<div class="container justify-content-center my-auto">
+    <div class="row admin-btn-container">
+        <div class="col-4">
+            <a href="{{path('admin-users')}}"><button type="button" class="btn btn-primary admin-btn">
+                <p><i class="fas fa-user"></i> Usuarios</p>
+            </button></a>
+        </div>
+        <div class="col-4">
+            <a href="{{path('admin-products')}}"><button type="button" class="btn btn-primary admin-btn">
+                <p><i class="fas fa-box-open"></i> Productos</p>
+            </button></a>
+        </div>
+        <div class="col-4">
+            <a href="{{path('admin-reviews')}}"><button type="button" class="btn btn-primary admin-btn">
+                <p><i class="fas fa-comment-dots"></i> Opiniones</p>
+            </button></a>
+        </div>
+    </div>
+    <div class="row my-3 admin-btn-container">
+        <div class="col-4">
+            <a href="{{path('admin-orders')}}"><button type="button" class="btn btn-primary admin-btn">
+                <p><i class="fas fa-shopping-cart"></i> Órdenes</p>
+            </button></a>
+        </div>
+        <div class="col-4">
+            <a href="{{path('admin-messages')}}"><button type="button" class="btn btn-primary admin-btn">
+                <p><i class="fas fa-envelope-open"></i> Mensajes</p>
+            </button></a>
+        </div>
+        <div class="col-4">
+            <a href="{{path('admin-categories')}}"><button type="button" class="btn btn-primary admin-btn">
+                <p><i class="fas fa-filter"></i> Categorias</p>
+            </button></a>
+        </div>
+    </div>
+</div>
+{% endblock %}
