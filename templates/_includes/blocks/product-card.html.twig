@@ -1,8 +1,18 @@
 <div class="justify-content-center">
+
+{% if height is defined %}
+    {% if height != NULL %}
+        <div class="card px-4 py-4 container" style="height:{{height}}px">
+    {% else %}
+        <div class="card px-4 py-4 container">
+    {% endif %}
+{% else %}
     <div class="card px-4 py-4 container">
+{% endif %}
+
         <div class="row">
             <div class="col-6">
-                <img class="img-fluid" src="{{asset('/assets/img/product/') ~ product.image}}">
+                <a href="/producto/{{product.slug}}"><img class="img-fluid" src="{{asset('/assets/img/product/') ~ product.image}}"></a>
             </div>
             <div class="col-6 text-left px-2 py-2">
                 <div class="row text-terciary">
@@ -14,15 +24,23 @@
                 </div>
 
             </div>
-            <div class="row align-middle text-primary mx-2 text-justify">
-                <h3><b> Descripción</b></h3>
-                <h4>
-                    {% if trimmedDescription is defined %}
-                        {{trimmedDescription}}...
-                    {% else %}
-                        {{product.description}}
-                    {% endif %}
-                </h4>
+            <div class="row align-middle text-primary mx-2 text-justify mt-2">
+                <div class="col-12">
+                    <h3><b> Descripción</b></h3>
+                </div>
+                <div class="col-12">
+                    <h4>
+                        {% if trimmedDescription is defined %}
+                            {% if trimmedDescription != NULL %}
+                                {{trimmedDescription}}...
+                            {% else %}
+                                {{product.description}}
+                            {% endif %}
+                        {% else %}
+                            {{product.description}}
+                        {% endif %}
+                    </h4>
+                </div>
             </div>
         </div>
     </div>

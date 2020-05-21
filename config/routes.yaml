@@ -16,6 +16,10 @@ product:
     path: /producto/{slug?}
     controller: App\Controller\ProductController::product
 
+product-search:
+    path: /busqueda/
+    controller: App\Controller\ProductController::productSearch
+
 ajax-register:
     path: /ajaxregister
     controller: App\Controller\AjaxController::registerUser

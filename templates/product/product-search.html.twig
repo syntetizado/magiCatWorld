@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Búsqueda{% endblock %}
+
+{% block body %}
+
+{% for product in products %}
+	<div class="mx-4 my-4">
+		{% include '_includes/blocks/product-card.html.twig' with {'product':product} %}
+	</div>
+{% endfor %}
+
+{% endblock %}

@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Query;
+
 //cargamos las entidades necesarias
 use App\Entity\ProductTb;
 
@@ -29,16 +32,10 @@ class ProductController extends AbstractController
 
     public function latestProducts(){
 
-        $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
-        $products = $product_repo->findAll();
-
         $numberOfProducts=10;
+        $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
+        $products = $product_repo->findBy([],['id' => 'DESC'],$numberOfProducts);
 
-        if (count($products)<$numberOfProducts) {
-            $products = $product_repo->findBy([],['id' => 'DESC'],count($products));
-        } else {
-            $products = $product_repo->findBy([],['id' => 'DESC'],$numberOfProducts);
-        }
 
 
         return $this->render('_includes/blocks/products.html.twig', [
@@ -46,19 +43,54 @@ class ProductController extends AbstractController
         ]);
     }
 
-    public function productCardTrimDesc($product){
+    public function productCard($product,$height = NULL){
 
         $trimNumber=100;
 
         if ( strlen( $product->getDescription() ) > $trimNumber ){
             $trimmedDescription=substr($product->getDescription(), 0, $trimNumber);
         } else {
-            $trimmedDescription=$product->getDescription();
+            $trimmedDescription = NULL;
         }
 
         return $this->render('_includes/blocks/product-card.html.twig', [
             'product' => $product,
+            'height' => $height,
             'trimmedDescription' => $trimmedDescription
+        ]);
+    }
+
+    public function productSearch(Request $request){
+
+        $search=$request->get('search');
+
+        $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
+        $em=$this->getDoctrine()->getManager();
+        $products = $result = $em->getRepository(ProductTb::class)->createQueryBuilder('o')
+            ->where('o.name LIKE :search')
+            ->setParameter('search', "%".$search."%")
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+        if (!$products){
+            $products = $result = $em->getRepository(ProductTb::class)->createQueryBuilder('o')
+                ->where('o.description LIKE :search')
+                ->setParameter('search', "%".$search."%")
+                ->getQuery()
+                ->getResult(Query::HYDRATE_ARRAY);
+        }
+
+
+
+        /*$trimNumber=100;
+
+        if ( strlen( $product->getDescription() ) > $trimNumber ){
+            $trimmedDescription=substr($product->getDescription(), 0, $trimNumber);
+        } else {
+            $trimmedDescription = NULL;
+        }*/
+
+        return $this->render('product/product-search.html.twig', [
+            'products' => $products
         ]);
     }
 }
