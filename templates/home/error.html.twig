@@ -4,14 +4,19 @@
 
 {% block body %}
 
-	<div class="col text-center">
-		<h1 class="http-error-number">{{number}}</h1>
-	</div>
-	<div class="col text-center">
+{% if number is not defined %}
+{% set number = 404 %}
+{% endif %}
+{% if message is not defined %}
+{% set message = "La página no existe" %}
+{% endif %}
 
-		<h1 class="http-error-text"><b>{{message}}</b></h1>
-	</div>
-
+<div class="col text-center">
+	<h1 class="http-error-number">{{number}}</h1>
+</div>
+<div class="col text-center">
+	<h1 class="http-error-text"><b>{{message}}</b></h1>
+</div>
 
 {% endblock %}
 

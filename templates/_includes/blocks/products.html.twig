@@ -1,6 +1,6 @@
 {% if products is defined %}
 <div class="container-fluid justify-content-center">
-	<div class="row justify-content-center module">
+	<div class="row justify-content-left">
 			{% for product in products %}
 			<div class="col-3 mt-4 d-none d-sm-none d-md-none d-lg-none d-xl-block">
 				{{render(controller('App\\Controller\\ProductController::productCard',{'product' : product,'height':450})) }}

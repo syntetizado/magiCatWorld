@@ -97,6 +97,16 @@ class UserTb implements UserInterface
      */
     private $rol;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $registerDate;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -249,5 +259,29 @@ class UserTb implements UserInterface
     }
 
     public function eraseCredentials(){
+    }
+
+    public function getRegisterDate(): ?\DateTimeInterface
+    {
+        return $this->registerDate;
+    }
+
+    public function setRegisterDate(?\DateTimeInterface $registerDate): self
+    {
+        $this->registerDate = $registerDate;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
     }
 }

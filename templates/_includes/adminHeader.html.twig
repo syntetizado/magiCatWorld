@@ -5,7 +5,8 @@
 				<p class="ml-3 py-1"><b>Panel de admin || admin: {{app.user.name}}</b>
 			</div>
 			<div class="col-12 col-sm-auto mt-2">
-				<p><a href="{{path('index')}}">
+				{% set currentRoute = path(app.request.attributes.get('_route')) %}
+				<p><a href="{{path('go-back',{'currentRoute' : currentRoute})}}">
 					<button class="btn btn-secondary btn-lg">Volver <i class="fas fa-undo"></i></button>
 				</a></p>
 			</div>

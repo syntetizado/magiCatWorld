@@ -17,8 +17,9 @@ class CategoryController extends AbstractController
     public function category(CategoryTb $category = NULL)
     {
         if ($category == NULL || !$category){
-          return $this->RedirectToRoute('not-found',[
-            "message" => "La página del evento no existe."
+            return $this->render('category/index.html.twig', [
+                "number" => "404",
+                "message" => "La categoría no existe"
           ]);
         }
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 //Importamos las entidades
 use App\Entity\CategoryTb;
@@ -50,5 +51,19 @@ class HomeController extends AbstractController
         return $this->render('home/error.html.twig', [
             'message' => 'La ruta especificada no existe'
         ]);
+    }
+
+    public function goBack(Request $request){
+
+        $requestURI=$request->get('currentRoute');
+
+        $after_bar = strrchr($requestURI, '/');
+        $url = str_replace($after_bar,'',$requestURI);
+
+        if ($url== '') {
+            $url = "/";
+        }
+
+        return $this->redirect($url);
     }
 }

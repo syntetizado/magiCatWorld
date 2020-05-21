@@ -6,11 +6,13 @@ index:
     path: /
     controller: App\Controller\HomeController::index
 
+go-back:
+    path: /back
+    controller: App\Controller\HomeController::goBack
+
 category:
     path: /categoria/{slug?}
     controller: App\Controller\CategoryController::category
-    defaults:
-      categoria: Ropa
 
 product:
     path: /producto/{slug?}
@@ -39,6 +41,8 @@ login:
 logout:
     path: /logout
 
+
+
 ########################################################
 ######################## ADMIN #########################
 ########################################################
@@ -49,24 +53,42 @@ admin:
 
 admin-users:
     path: /admin/usuarios
-    controller: App\Controller\AdminController::index
+    controller: App\Controller\AdminController::users
 
 admin-products:
     path: /admin/productos
-    controller: App\Controller\AdminController::index
+    controller: App\Controller\AdminController::products
 
 admin-reviews:
     path: /admin/opiniones
-    controller: App\Controller\AdminController::index
+    controller: App\Controller\AdminController::reviews
 
 admin-orders:
     path: /admin/ordenes
-    controller: App\Controller\AdminController::index
+    controller: App\Controller\AdminController::orders
 
 admin-messages:
     path: /admin/mensajes
-    controller: App\Controller\AdminController::index
+    controller: App\Controller\AdminController::messages
 
 admin-categories:
     path: /admin/categorias
-    controller: App\Controller\AdminController::index
+    controller: App\Controller\AdminController::categories
+
+#######################################################
+
+active-user:
+    path: /admin/active-user/{id?}
+    controller: App\Controller\AdminController::activeUser
+
+active-product:
+    path: /admin/active-product/{id?}
+    controller: App\Controller\AdminController::activeProduct
+
+active-review:
+    path: /admin/active-review/{id?}
+    controller: App\Controller\AdminController::activeReview
+
+active-order:
+    path: /admin/active-order/{id?}
+    controller: App\Controller\AdminController::activeOrder

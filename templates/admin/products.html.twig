@@ -1,0 +1,54 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}productos{% endblock %}
+
+{% block body %}
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Activo</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+        <tr>
+            <th scope="col">{{product.id}}</th>
+            <th scope="col">{{product.name}}</th>
+            <th scope="col">{{product.price}} €</th>
+            <th scope="col">{{product.warehousequantity}}</th>
+            <th scope="col">
+                <a href="#">
+                    <button class="btn btn-info">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </a>
+            </th>
+            <th scope="col">
+            {% if product.active %}
+            <a href="{{path('active-product',{'id':product.id})}}">
+                <button class="btn btn-success">
+                    <i class="fas fa-check"></i>
+                </button>
+            </a>
+            {% else %}
+            <a href="{{path('active-product',{'id':product.id})}}">
+                <button class="btn btn-danger">
+                    <i class="fas fa-times"></i>
+                </button>
+            </a>
+            {% endif %}
+            </th>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
