@@ -61,7 +61,8 @@ class AjaxController extends AbstractController
                         'modalTitle' => 'Error',
                         'icon' => '<i class="fas fa-times text-danger"></i>',
                         'message' => 'El email ya existe',
-                        'toggle' => 'register'
+                        'toggle' => 'register',
+                        'activated' => 'no'
                     ]);
                     return $response;
                 }
@@ -72,7 +73,8 @@ class AjaxController extends AbstractController
                         'modalTitle' => 'Error',
                         'icon' => '<i class="fas fa-times text-danger"></i>',
                         'message' => 'El nick ya existe',
-                        'toggle' => 'register'
+                        'toggle' => 'register',
+                        'activated' => 'no'
                     ]);
                     return $response;
                 }
@@ -82,7 +84,8 @@ class AjaxController extends AbstractController
                         'modalTitle' => $form->get('nick')->getData(),
                         'icon' => '<i class="fas fa-times text-danger"></i>',
                         'message' => 'Las contraseñas no coinciden',
-                        'toggle' => 'register'
+                        'toggle' => 'register',
+                        'activated' => 'no'
                     ]);
                     $error = true;
                     return $response;
@@ -113,7 +116,8 @@ class AjaxController extends AbstractController
                     'modalTitle' => 'Usuario registrado con éxito',
                     'icon' => '<i class="fas fa-check text-success"></i>',
                     'message' => 'Ahora puedes iniciar sesión',
-                    'toggle' => 'login'
+                    'toggle' => 'login',
+                    'activated' => 'no'
                 ]);
                 return $response;
             } else {
@@ -121,7 +125,8 @@ class AjaxController extends AbstractController
                     'modalTitle' => 'Error',
                     'icon' => '<i class="fas fa-times text-danger"></i>',
                     'message' => 'Error al enviar el formulario',
-                    'toggle' => ''
+                    'toggle' => '',
+                    'activated' => 'no'
                 ]);
                 return $response;
             }
@@ -131,19 +136,43 @@ class AjaxController extends AbstractController
                     'modalTitle' => 'Error',
                     'icon' => '<i class="fas fa-times text-danger"></i>',
                     'message' => 'Error al enviar el formulario',
-                    'toggle' => ''
+                    'toggle' => '',
+                    'activated' => 'no'
                 ]);
             return $response;
             }
         }
     }
 
-    public function logUser(Request $request){
-            $response = $this->forward('App\Controller\ModalController::infoPopup', [
+    public function logUserSuccess(){
+
+            $response = $this->forward('App\Controller\ModalController::loginStatusPopup', [
+                'modalTitle' => 'Datos correctos!',
+                'icon' => '<i class="fas fa-check text-success"></i>',
+                'message' => 'Has iniciado sesión correctamente',
+                'ask' => false
+            ]);
+            return $response;
+    }
+
+    public function logUserError(){
+
+            $response = $this->forward('App\Controller\ModalController::loginStatusPopup', [
                 'modalTitle' => 'Error',
                 'icon' => '<i class="fas fa-times text-danger"></i>',
-                'message' => '$request',
-                'toggle' => 'register'
+                'message' => 'Error al intentar iniciar sesión',
+                'ask' => false
+            ]);
+            return $response;
+    }
+
+    public function logout(){
+
+            $response = $this->forward('App\Controller\ModalController::loginStatusPopup', [
+                'modalTitle' => 'Cierre de sesión',
+                'icon' => '<i class="fas fa-exclamation-circle text-info"></i>',
+                'message' => '¿Seguro que quieres cerrar sesión?',
+                'ask' => true
             ]);
             return $response;
     }

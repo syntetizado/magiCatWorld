@@ -33,7 +33,7 @@ class ModalController extends AbstractController
             'controller_name' => 'ModalController',
             'modalTitle' => "Registro de usuario",
             'form' => $form->createView(),
-            'icon' => "<i class='fas fa-user'></i>",
+            'icon' => "<i class='fas fa-user'></i>"
         ]);
    	}
 
@@ -60,13 +60,14 @@ class ModalController extends AbstractController
         ]);
     }
 
-    public function infoPopup($message, $modalTitle, $icon, $toggle){
+    public function infoPopup($message, $modalTitle, $icon, $toggle, $activated){
 
         return $this->render('modal/infoPopup.html.twig', [
             'modalTitle' => $modalTitle,
             'icon' => $icon,
             'message' => $message,
-            'toggle' => $toggle
+            'toggle' => $toggle,
+            'activated' => $activated
         ]);
     }
 
@@ -75,6 +76,16 @@ class ModalController extends AbstractController
         return $this->render('modal/userPopup.html.twig', [
             'modalTitle' => 'Datos de usuario',
             'icon' => "<i class='fas fa-user'></i>",
+        ]);
+    }
+
+    public function loginStatusPopup($message, $modalTitle, $icon,$ask){
+
+        return $this->render('modal/loginStatusPopup.html.twig', [
+            'modalTitle' => $modalTitle,
+            'icon' => $icon,
+            'message' => $message,
+            'ask' => $ask
         ]);
     }
 }

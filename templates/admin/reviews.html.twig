@@ -1,6 +1,6 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}usuarios{% endblock %}
+{% block title %}Reviews{% endblock %}
 
 {% block body %}
 
@@ -10,38 +10,38 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">nick</th>
-            <th scope="col">email</th>
-            <th scope="col">Fecha de registro</th>
+            <th scope="col">Puntuación</th>
+            <th scope="col">Título</th>
+            <th scope="col">Fecha de creación</th>
             <th scope="col">Editar</th>
-            <th scope="col">Activo</th>
+            <th scope="col">Baneado</th>
         </tr>
     </thead>
     <tbody>
-    {% for user in users %}
+    {% for review in reviews %}
         <tr>
-            <th scope="col">{{user.id}}</th>
-            <th scope="col">{{user.nick}}</th>
-            <th scope="col">{{user.email}}</th>
-            <th scope="col">{{user.registerdate|date('j/M/Y')}}</th>
+            <th scope="col">{{review.id}}</th>
+            <th scope="col">{{review.title}}</th>
+            <th scope="col">{{review.rating}}</th>
+            <th scope="col">{{review.date|date('j/M/Y')}}</th>
             <th scope="col">
                 <a href="#">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-info">
                         <i class="fas fa-edit"></i>
                     </button>
                 </a>
             </th>
             <th scope="col">
-            {% if user.active %}
-            <a href="{{path('active-user')}}">
+            {% if not review.banned %}
+            <a href="{{path('active-review',{'id':review.id})}}">
                 <button class="btn btn-success">
                     <i class="fas fa-check"></i>
                 </button>
             </a>
             {% else %}
-            <a href="{{path('active-user',{'id':user.id})}}">
+            <a href="{{path('active-review',{'id':review.id})}}">
                 <button class="btn btn-danger">
-                    <i class="fas fa-times"></i>
+                    <i class="fas fa-gavel"></i>
                 </button>
             </a>
             {% endif %}

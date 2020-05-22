@@ -18,7 +18,7 @@ class ProductController extends AbstractController
      */
     public function product(ProductTb $product = NULL){
 
-        if (!$product || $product->getActive() == 0){
+        if ($product == NULL || $product->getActive() == 0){
             return $this->render('home/error.html.twig', [
                 'message' => "Este producto no existe",
                 'number' => 404
@@ -30,15 +30,16 @@ class ProductController extends AbstractController
         ]);
     }
 
-    public function latestProducts(){
+    public function latestProducts($nprods = NULL){
 
-        $numberOfProducts=10;
+        if (!$nprods) {
+            $nprods = 10;
+        }
+
         $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
-        $products = $product_repo->findBy([],['id' => 'DESC'],$numberOfProducts);
+        $products = $product_repo->findBy([],['id' => 'DESC'],$nprods);
 
-
-
-        return $this->render('_includes/blocks/products.html.twig', [
+        return $this->render('_includes/blocks/products-latest.html.twig', [
             'products' => $products
         ]);
     }
@@ -53,7 +54,7 @@ class ProductController extends AbstractController
             $trimmedDescription = NULL;
         }
 
-        return $this->render('_includes/blocks/product-card.html.twig', [
+        return $this->render('_includes/blocks/product-minicard.html.twig', [
             'product' => $product,
             'height' => $height,
             'trimmedDescription' => $trimmedDescription
@@ -78,16 +79,6 @@ class ProductController extends AbstractController
                 ->getQuery()
                 ->getResult(Query::HYDRATE_ARRAY);
         }
-
-
-
-        /*$trimNumber=100;
-
-        if ( strlen( $product->getDescription() ) > $trimNumber ){
-            $trimmedDescription=substr($product->getDescription(), 0, $trimNumber);
-        } else {
-            $trimmedDescription = NULL;
-        }*/
 
         return $this->render('product/product-search.html.twig', [
             'products' => $products

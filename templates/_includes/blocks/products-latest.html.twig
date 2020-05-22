@@ -1,0 +1,29 @@
+{% if products is defined %}
+<div class="container mt-5">
+
+  <!--Section: Content-->
+  <section class="dark-grey-text text-center">
+
+    <!-- Section heading -->
+    <h3 class="font-weight-bold mb-4 pb-2">Nuestros últimos productos</h3>
+    <!-- Section description -->
+    <p class="grey-text w-responsive mx-auto mb-5 font-weight-bold">Nunca creemos que el cuidado de los gatos es suficiente, con estos últimos productos, tu gatito se sentirá como en casa</p>
+
+  	<!-- Grid row -->
+    <div class="row">
+
+      {% for product in products %}
+          {{render(controller('App\\Controller\\ProductController::productCard',{'product' : product})) }}
+      {% endfor %}
+
+
+
+    </div>
+    <!-- Grid row -->
+
+  </section>
+  <!--Section: Content-->
+
+
+</div>
+{% endif %}

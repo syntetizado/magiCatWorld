@@ -1,0 +1,33 @@
+<!-- Grid column -->
+<div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
+  <!-- Card -->
+  <div class="card align-items-center">
+    <!-- Card image -->
+    <div class="view overlay">
+      <img src="{{asset('assets/img/product/' ~ product.image)}}" class="card-img-top control-image"
+        alt="">
+      <a>
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+    <!-- Card image -->
+    <!-- Card content -->
+    <div class="card-body text-center">
+      <!-- Category & Title -->
+      <a href="" class="grey-text">
+        <h6>{{product.category.name}}</h6>
+      </a>
+      <h5 class="mb-3">
+        <strong>
+          <a href="/producto/{{product.slug}}" class="dark-grey-text">{{product.name}}</a>
+        </strong>
+      </h5>
+      <h5 class="font-weight-bold text-primary mb-0">
+        <strong>{{product.price}} €</strong>
+      </h5>
+    </div>
+    <!-- Card content -->
+  </div>
+  <!-- Card -->
+</div>
+<!-- Grid column -->

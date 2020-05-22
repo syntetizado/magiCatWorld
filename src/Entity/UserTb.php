@@ -126,7 +126,10 @@ class UserTb implements UserInterface
 
     public function getPassword(): ?string
     {
-        return $this->password;
+        if ($this->getActive()) {
+            return $this->password;
+        }
+        return '';
     }
 
     public function setPassword(string $password): self

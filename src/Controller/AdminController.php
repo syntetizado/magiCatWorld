@@ -91,12 +91,12 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function activeReview(ReviewTb $review){
+    public function banReview(ReviewTb $review){
 
-        if ($review->getActive())
-            $review->setActive(0);
+        if ($review->getBanned())
+            $review->setBanned(0);
         else
-            $review->setActive(1);
+            $review->setBanned(1);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($review);

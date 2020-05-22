@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\UserTb;
+use App\Security\UserChecker;
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -25,10 +26,15 @@ class UserController extends AbstractController
     }
 
     public function login(AuthenticationUtils $authenticationUtils,Security $security){
-        if ($security->getUser()){
-            return $this->RedirectToRoute('category',['slug' => 'cuidado']);
+
+        die(var_dump($security));
+
+        if (!$security->getUser()){
+            return $this->render('home/index.html.twig', [
+                'loginError' => true
+            ]);
         }
 
-        return $this->RedirectToRoute('index');
+        return $this->RedirectToRoute('login-success');
     }
 }

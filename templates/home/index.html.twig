@@ -1,18 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenido!{% endblock %}
+{% block title %}magiCatWorld{% endblock %}
 
 {% block body %}
 
 <div class="text-center">
-    <h2 class="text-muted">Tu tienda online de artículos gatunos, donde tu gato se sentirá como en casa!</h2>
-
-    <br>
-    <h1><b>Últimos artículos</b> </h1>
+    <h1 class="mt-5"><b>¡Bienbenido a tu tienda de artículos para gatos preferida!</b> </h1>
 </div>
 
+{% include '_includes/blocks/cat-description.html.twig' %}
 
-{{render(controller('App\\Controller\\ProductController::latestProducts')) }}
+{{render(controller('App\\Controller\\ProductController::latestProducts',{'nprods' : 12})) }}
+
+
+
+{% if loginError is defined %}
+{{render(path('ajax-login-error')) }}
+{% endif %}
+
+{% if loginTrue is defined %}
+{{render(path('ajax-login-success')) }}
+{% endif %}
+
+{% if logout is defined %}
+{{render(path('ajax-logout'))}}
+{% endif %}
 
 {% endblock %}
 

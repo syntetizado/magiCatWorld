@@ -66,4 +66,20 @@ class HomeController extends AbstractController
 
         return $this->redirect($url);
     }
+
+    public function backToIndex(){
+        return $this->RedirectToRoute('index');
+    }
+
+    public function loginSuccess(){
+        return $this->render('home/index.html.twig', [
+            'loginTrue' => true
+        ]);
+    }
+
+    public function preLogout(){
+        return $this->render('home/index.html.twig', [
+            'logout' => true
+        ]);
+    }
 }

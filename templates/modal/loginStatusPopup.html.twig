@@ -1,0 +1,53 @@
+<!-- Modal -->
+
+<div class="modal fade" id="infoPopupActivatedOnCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+
+            <!--HEADER DEL MODAL-->
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    {% if icon is defined %}
+                        {{icon | raw}}
+                    {% else %}
+                        ??
+                    {% endif %}
+
+                    {% if modalTitle is defined %}
+                        {{modalTitle}}
+                    {% else %}
+                        titulo de modal sin definir
+                    {% endif %}
+                </h5>
+                <button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-------------------->
+
+            <!--CUERPO DEL MODAL-->
+            <div class="modal-body">
+                {% if message is defined %}
+                    {{message}}
+                {% else %}
+                    cuerpo del modal sin definir
+                {% endif %}
+            </div>
+            <!------------------->
+
+            <!---PIE DEL MODAL--->
+
+            <div class="modal-footer" style="height: 70px">
+                {% if ask is defined %}
+                {% if ask == true  %}
+                <a id="infoPopupLogout"><button type="button" class="btn btn-primary" data-dismiss="modal" >Desconectar</button></a>
+                <a id="infoPopupButton"><button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancelar</button></a>
+                {% else %}
+                <a id="infoPopupButton"><button type="button" class="btn btn-primary" data-dismiss="modal" >OK</button></a>
+                {% endif %}
+                {% endif %}
+            </div>
+            <!------------------->
+        </div>
+    </div>
+</div>

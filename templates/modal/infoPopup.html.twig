@@ -1,4 +1,5 @@
 <!-- Modal -->
+
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
@@ -29,14 +30,15 @@
       </div>
       <div class="modal-footer" style="height: 70px">
             {% if toggle == "register" %}
-                <button id="gotoRegister" type="button" class="btn btn-primary" data-toggle="modal" data-target"#registerModal" >volver</button>
+                <button id="gotoRegister" type="submit" class="btn btn-primary" data-toggle="modal" data-target"#registerModal" >volver</button>
             {% endif %}
             {% if toggle == "login" %}
-                <button id="gotoLogin" type="button" class="btn btn-primary" >iniciar sesión</button>
+                <button id="gotoLogin" type="submit" class="btn btn-primary" >iniciar sesión</button>
             {% endif %}
             {% if toggle == "" %}
                 <button type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
             {% endif %}
+
       </div>
     </div>
   </div>

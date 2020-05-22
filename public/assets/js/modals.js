@@ -58,3 +58,17 @@ $('form[name="form_user_login"]').submit(function(e) {
     })
 	;
 });
+
+$( document ).ready(function() {
+    $('#infoPopupActivatedOnCreate').modal('toggle');
+    $('#infoPopupButton').click(function(){
+        window.location.href = "backtoindex";
+    });
+    $('#infoPopupLogout').click(function(){
+        window.location.href = "logout";
+    });
+    $('#infoPopupActivatedOnCreate').focusout(function(){
+        window.location.href = "backtoindex";
+    });
+    focusout
+});

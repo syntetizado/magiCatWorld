@@ -26,9 +26,17 @@ ajax-register:
     path: /ajaxregister
     controller: App\Controller\AjaxController::registerUser
 
-ajax-login:
-    path: /ajaxlogin
-    controller: App\Controller\AjaxController::logUser
+ajax-login-error:
+    path: /ajaxloginError
+    controller: App\Controller\AjaxController::logUserError
+
+ajax-login-success:
+    path: /ajaxloginSuccess
+    controller: App\Controller\AjaxController::logUserSuccess
+
+ajax-logout:
+    path: /ajaxlogout
+    controller: App\Controller\AjaxController::logout
 
 not-found:
     path: /error
@@ -37,6 +45,18 @@ not-found:
 login:
     path: /login
     controller: App\Controller\UserController::login
+
+login-success:
+    path: /loginSuccess
+    controller: App\Controller\HomeController::loginSuccess
+
+back-to-index:
+    path: /backtoindex
+    controller: App\Controller\HomeController::backToIndex
+
+pre-logout:
+    path: /prelogout
+    controller: App\Controller\HomeController::preLogout
 
 logout:
     path: /logout
@@ -87,7 +107,7 @@ active-product:
 
 active-review:
     path: /admin/active-review/{id?}
-    controller: App\Controller\AdminController::activeReview
+    controller: App\Controller\AdminController::banReview
 
 active-order:
     path: /admin/active-order/{id?}
