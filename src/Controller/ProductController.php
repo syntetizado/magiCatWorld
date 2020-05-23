@@ -10,6 +10,7 @@ use Doctrine\ORM\Query;
 
 //cargamos las entidades necesarias
 use App\Entity\ProductTb;
+use App\Entity\ProductFeatureTb;
 
 class ProductController extends AbstractController
 {
@@ -25,22 +26,37 @@ class ProductController extends AbstractController
             ]);
         }
 
+        $productFeature_repo = $this->getDoctrine()->getRepository(ProductFeatureTb::class);
+        $features = $productFeature_repo->findBy(['idProduct' => $product->getId()]);
+
         return $this->render('product/index.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'features' => $features
         ]);
     }
 
     public function latestProducts($nprods = NULL){
 
         if (!$nprods) {
-            $nprods = 10;
+            $nprods = 12;
         }
 
         $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
         $products = $product_repo->findBy([],['id' => 'DESC'],$nprods);
 
+        foreach ($products as $product) {
+            $productFeature_repo = $this->getDoctrine()->getRepository(ProductFeatureTb::class);
+            $features = $productFeature_repo->findBy(['idProduct' => $product->getId()]);
+            foreach ($features as $feature) {
+                $product->addFeature($feature);
+            }
+
+        }
+
         return $this->render('_includes/blocks/products-latest.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'features' => ''
+
         ]);
     }
 

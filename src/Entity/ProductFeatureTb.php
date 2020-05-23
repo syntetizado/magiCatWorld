@@ -5,52 +5,64 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductFeatureTbRepository")
+ * ProductFeatureTb
+ *
+ * @ORM\Table(name="product_feature_tb", indexes={@ORM\Index(name="fk_productfeature", columns={"id_product"})})
+ * @ORM\Entity
  */
 class ProductFeatureTb
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var string|null
+     *
+     * @ORM\Column(name="feature", type="string", length=255, nullable=true)
      */
-    private $id_product;
+    private $text;
 
     /**
-     * @ORM\Column(type="string", length=250, nullable=true)
+     * @var \ProductTb
+     *
+     * @ORM\ManyToOne(targetEntity="ProductTb")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_product", referencedColumnName="id")
+     * })
      */
-    private $feature;
+    private $idProduct;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getIdProduct(): ?int
+    public function getText(): ?string
     {
-        return $this->id_product;
+        return $this->text;
     }
 
-    public function setIdProduct(int $id_product): self
+    public function setText(?string $text): self
     {
-        $this->id_product = $id_product;
+        $this->name = $text;
 
         return $this;
     }
 
-    public function getFeature(): ?string
+    public function getProduct(): ?string
     {
-        return $this->feature;
+        return $this->idProduct;
     }
 
-    public function setFeature(?string $feature): self
+    public function setProduct(?ProductTb $product): self
     {
-        $this->feature = $feature;
+        $this->name = $product;
 
         return $this;
     }

@@ -1,29 +1,102 @@
 {% if products is defined %}
+
+<h2 class="text-center">Novedades en productos</h2>
+
+<div class="bd-example tarjeta-grande mb-5">
+  <div id="carouselLatest" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {% set first = true %}
+        {% set number = 0 %}
+        {% for product in products %}
+        {% if first == true %}
+        <li data-target="#carouselLatest" data-slide-to="{{number}}" class="active"></li>
+            {% set first = false %}
+        {% else %}
+        <li data-target="#carouselLatest" data-slide-to="{{number}}"></li>
+        {% endif %}
+        {% set number = number + 1 %}
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% set first = true %}
+        {% for product in products %}
+        {% if first == true %}
+        <div class="carousel-item active">
+            {% set first = false %}
+        {% else %}
+        <div class="carousel-item">
+        {% endif %}
+        <a href="/producto/{{product.slug}}">
+            <img class="control-image" style="-webkit-filter: brightness(50%);" src="{{asset('/assets/img/product/') ~ product.image}}">
+        </a>
+
+        <div class="carousel-caption d-block">
+          <h5>{{product.name}}</h5>
+          <p>{{product.price}} €</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselLatest" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselLatest" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <div class="container mt-5">
 
-  <!--Section: Content-->
+  <!--Section: Content--
   <section class="dark-grey-text text-center">
 
-    <!-- Section heading -->
+    <!-- Section heading --
     <h3 class="font-weight-bold mb-4 pb-2">Nuestros últimos productos</h3>
-    <!-- Section description -->
+    <!-- Section description --
     <p class="grey-text w-responsive mx-auto mb-5 font-weight-bold">Nunca creemos que el cuidado de los gatos es suficiente, con estos últimos productos, tu gatito se sentirá como en casa</p>
 
-  	<!-- Grid row -->
+  	<!-- Grid row --
     <div class="row">
 
-      {% for product in products %}
-          {{render(controller('App\\Controller\\ProductController::productCard',{'product' : product})) }}
-      {% endfor %}
+      % for product in products %}
+          {render(controller('App\\Controller\\ProductController::productCard',{'product' : product})) }}
+      % endfor %}
 
 
 
     </div>
-    <!-- Grid row -->
+    <!-- Grid row --
 
   </section>
-  <!--Section: Content-->
+  <!--Section: Content--
 
 
 </div>
-{% endif %}
+-->

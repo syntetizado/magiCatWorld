@@ -10,18 +10,6 @@ go-back:
     path: /back
     controller: App\Controller\HomeController::goBack
 
-category:
-    path: /categoria/{slug?}
-    controller: App\Controller\CategoryController::category
-
-product:
-    path: /producto/{slug?}
-    controller: App\Controller\ProductController::product
-
-product-search:
-    path: /busqueda/
-    controller: App\Controller\ProductController::productSearch
-
 ajax-register:
     path: /ajaxregister
     controller: App\Controller\AjaxController::registerUser
@@ -61,7 +49,33 @@ pre-logout:
 logout:
     path: /logout
 
+########################################################
+######################## PRODUCTOS #####################
+########################################################
 
+category:
+    path: /categoria/{slug?}
+    controller: App\Controller\CategoryController::category
+
+product:
+    path: /producto/{slug?}
+    controller: App\Controller\ProductController::product
+
+product-search:
+    path: /busqueda/
+    controller: App\Controller\ProductController::productSearch
+
+########################################################
+######################## CESTA #########################
+########################################################
+
+cesta:
+    path: /cesta/{slug?}
+    controller: App\Controller\OrderController::addToOrder
+
+cesta-agregar:
+    path: /cesta/agregar/
+    controller: App\Controller\OrderController::addToOrder
 
 ########################################################
 ######################## ADMIN #########################

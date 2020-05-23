@@ -1,11 +1,10 @@
 <div class="container mt-5">
 
-
   <!--Section: Content-->
   <section class="mb-5">
 
     <!-- Section heading -->
-    <h3 class="text-center font-weight-bold mb-5">Product Details</h3>
+    <h3 class="text-center font-weight-bold mb-5">Detalles de producto</h3>
 
   	<div class="row">
 
@@ -16,18 +15,24 @@
           <div class="card-body">
             <div class="row h-100 d-flex align-items-center">
               <div class="col-lg-6">
-                <p class="text-primary ml-3 mb-5">{{product.description}}
+                  <h2 class=" ml-3">{{product.name}}</h2>
+                <p class=" ml-3 mb-5">{{product.description}}
                 </p>
                 <ul class="fa-ul mb-5 text-muted font-weight-light">
-                  <li class="mb-2"><span class="fa-li"><i class="fas fa-check green-text"></i></span>Built in GPS</li>
-                  <li class="mb-2"><span class="fa-li"><i class="fas fa-check green-text"></i></span>Heart Rate Sensor</li>
-                  <li class="mb-2"><span class="fa-li"><i class="fas fa-check green-text"></i></span>Water Resistant 50 Meters</li>
-                  <li class="mb-2"><span class="fa-li"><i class="fas fa-check green-text"></i></span>Comprehensive Workout App</li>
+                    {% for feature in features %}
+                        <li class="mb-2"><span class="fa-li"><i class="fas fa-check green-text"></i></span>{{feature.text}}</li>
+                    {% endfor %}
                 </ul>
                 <div class="d-flex justify-content-between ml-3">
-                  <button type="button" class="btn btn-primary mx-0">Purchase</button>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-secondary" id="productLess"><i class="fas fa-arrow-left"></i></button>
+                        <button type="button" class="btn btn-secondary" id="productBuyNumber" disabled = "disabled" data-quantity="1">1</button>
+                        <button type="button" class="btn btn-secondary" id="productMore"><i class="fas fa-arrow-right"></i></button>
+                        <button type="button" class="btn btn-primary" id="buyButton" data-product="{{product.id}}">Comprar</button>
+                    </div>
+
                   <div class="text-center">
-                    <h4 class="mb-0 font-weight-bold">$399</h4>
+                    <h4 class="mb-0 font-weight-bold" id="price" data-price="{{product.price}}">{{product.price}} €</h4>
                   	<small class="grey-text">+5€ gasto de envío</small>
                   </div>
                 </div>
@@ -45,59 +50,4 @@
   </section>
   <!--Section: Content-->
 
-
-</div>
-
-
-
-
-
-
-
-<div class="justify-content-center">
-
-{% if height is defined %}
-    {% if height != NULL %}
-        <div class="card px-4 py-4 container" style="height:{{height}}px">
-    {% else %}
-        <div class="card px-4 py-4 container">
-    {% endif %}
-{% else %}
-    <div class="card px-4 py-4 container">
-{% endif %}
-
-        <div class="row">
-            <div class="col-6">
-                <a href="/producto/{{product.slug}}"><img class="img-fluid" src="{{asset('/assets/img/product/') ~ product.image}}"></a>
-            </div>
-            <div class="col-6 text-left px-2 py-2">
-                <div class="row text-terciary">
-                    <h1><b>{{product.name}}</b> </h1>
-                </div>
-                <div class="row text-primary align-items-center my-3">
-                        <h3 class="text-muted no-wrapping">Precio &nbsp;</h3>
-                        <h3><b>{{product.price}}&nbsp;€</b></h3>
-                </div>
-
-            </div>
-            <div class="row align-middle text-primary mx-2 text-justify mt-2">
-                <div class="col-12">
-                    <h3><b> Descripción</b></h3>
-                </div>
-                <div class="col-12">
-                    <h4>
-                        {% if trimmedDescription is defined %}
-                            {% if trimmedDescription != NULL %}
-                                {{trimmedDescription}}...
-                            {% else %}
-                                {{product.description}}
-                            {% endif %}
-                        {% else %}
-                            {{product.description}}
-                        {% endif %}
-                    </h4>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

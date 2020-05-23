@@ -4,8 +4,10 @@
   <div class="card align-items-center">
     <!-- Card image -->
     <div class="view overlay">
-      <img src="{{asset('assets/img/product/' ~ product.image)}}" class="card-img-top control-image"
-        alt="">
+        <a href="/producto/{{product.slug}}">
+           <img src="{{asset('assets/img/product/' ~ product.image)}}" class="card-img-top control-image">
+        </a>
+
       <a>
         <div class="mask rgba-white-slight"></div>
       </a>
@@ -14,15 +16,15 @@
     <!-- Card content -->
     <div class="card-body text-center">
       <!-- Category & Title -->
-      <a href="" class="grey-text">
+      <a href="/categoria/{{product.category.slug}}" class="text-primary text-decoration-none">
         <h6>{{product.category.name}}</h6>
       </a>
       <h5 class="mb-3">
         <strong>
-          <a href="/producto/{{product.slug}}" class="dark-grey-text">{{product.name}}</a>
+          <a href="/producto/{{product.slug}}" class="text-primary text-decoration-none">{{product.name}}</a>
         </strong>
       </h5>
-      <h5 class="font-weight-bold text-primary mb-0">
+      <h5 class="font-weight-bold mb-0">
         <strong>{{product.price}} €</strong>
       </h5>
     </div>

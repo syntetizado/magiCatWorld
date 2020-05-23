@@ -80,7 +80,7 @@ class ProductTb
      */
     private $category;
 
-    private $child;
+    private $features=[];
 
     public function getId(): ?int
     {
@@ -183,5 +183,15 @@ class ProductTb
         return $this;
     }
 
+    public function addFeature(?ProductFeatureTb $feature): self
+    {
+        $this->features[] = $feature;
 
+        return $this;
+    }
+
+    public function getFeatures()
+    {
+        return $this->features;
+    }
 }

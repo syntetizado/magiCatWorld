@@ -70,5 +70,4 @@ $( document ).ready(function() {
     $('#infoPopupActivatedOnCreate').focusout(function(){
         window.location.href = "backtoindex";
     });
-    focusout
 });
