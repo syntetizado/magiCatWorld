@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 //Importamos las entidades
 use App\Entity\CategoryTb;
+use App\Entity\ContactformTb;
 
 //Y los tipos de input de formularios necesarios
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -87,7 +88,9 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function sendForm(){
+    public function sendForm(Request $request){
+
+        $contact = new ContactformTb();
 
         $form = $this->createFormBuilder()
 			->add('email', TextType::class,['required' => false])
@@ -96,9 +99,45 @@ class HomeController extends AbstractController
             ->add('description', TextareaType::class,['required' => false])
         ->getForm();
 
+        // Comprobamos la solicitud
+		$form->handleRequest($request);
 
-        return $this->render('home/contactForm.html.twig', [
-            'form' => $form->createView()
-        ]);
+		// Comrpobamos si el formuario se ha registrado y es valido
+		if ($form->isSubmitted() && $form->isValid()){
+
+            if ($form->get('name')->getData() != NULL) {
+                $contact->setName($form->get('name')->getData());
+            }
+            if ($form->get('email')->getData() != NULL) {
+                $contact->setEmail($form->get('email')->getData());
+            }
+            if ($form->get('topic')->getData() != NULL) {
+                $contact->setTopic($form->get('topic')->getData());
+            }
+            if ($form->get('description')->getData() != NULL) {
+                $contact->setDescription($form->get('description')->getData());
+            }
+
+            $date = date('Y-m-d H:i:s');
+            $contact->setDate(new \DateTime());
+
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+
+            return $this->render('home/contactForm.html.twig', [
+                'form' => $form->createView(),
+                'message' => "Enviado correctamente",
+                'icon' => '<i class="fas fa-check text-success"></i>'
+            ]);
+        } else {
+            return $this->render('home/contactForm.html.twig', [
+                'form' => $form->createView(),
+                'message' => '',
+                'icon' => ''
+            ]);
+        }
     }
 }

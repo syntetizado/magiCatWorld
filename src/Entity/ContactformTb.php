@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ContactformTb
  *
- * @ORM\Table(name="contactform_tb", indexes={@ORM\Index(name="contactformtb_userfk", columns={"id_user"})})
+ * @ORM\Table(name="contactform_tb")})
  * @ORM\Entity
  */
 class ContactformTb
@@ -43,14 +43,18 @@ class ContactformTb
     private $date;
 
     /**
-     * @var \UserTb
+     * @var string|null
      *
-     * @ORM\ManyToOne(targetEntity="UserTb")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="name", type="text", length=65, nullable=true)
      */
-    private $idUser;
+    private $name;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="email", type="text", length=65, nullable=true)
+     */
+    private $email;
 
     public function getId(): ?int
     {
@@ -93,14 +97,26 @@ class ContactformTb
         return $this;
     }
 
-    public function getIdUser(): ?UserTb
+    public function getName(): ?String
     {
-        return $this->idUser;
+        return $this->name;
     }
 
-    public function setIdUser(?UserTb $idUser): self
+    public function setName(?String $name): self
     {
-        $this->idUser = $idUser;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getEmail(): ?String
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?String $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

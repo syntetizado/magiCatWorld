@@ -22,9 +22,9 @@
     {% for message in messages %}
         <tr>
             <th scope="col">{{message.id}}</th>
-            <th scope="col">{{message.iduser.nick}}</th>
+            <th scope="col">{{message.name}}</th>
             <th scope="col">{{message.topic}}</th>
-            <th scope="col">{{message.date|date('j/M/Y')}}</th>
+            <th scope="col">{{message.date|date('Y-m-d H:i:s')}}</th>
             <th scope="col">
                 <a href="{{path('show-message',{'id':message.id})}}">
                     <button class="ml-3 btn btn-primary">
