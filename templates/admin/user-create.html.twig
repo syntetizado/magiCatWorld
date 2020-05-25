@@ -1,0 +1,170 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Crear usuario{% endblock %}
+
+{% form_theme form _self %}
+
+
+{% block choice_widget %}
+        {% set type = type|default('choice') %}
+    <label class="btn btn-secondary">
+        {% if attr["user-rol"] == 'ROLE_ADMIN' %}
+        <input type="radio" name="form[rol]" id="option1" autocomplete="off" value="ROLE_ADMIN" checked> admin
+        {% else %}
+        <input type="radio" name="form[rol]" id="option1" autocomplete="off" value="ROLE_ADMIN"> admin
+        {% endif %}
+    </label>
+    <label class="btn btn-secondary">
+        {% if attr["user-rol"] == 'ROLE_USER' %}
+        <input type="radio" name="form[rol]" id="option2" value="ROLE_USER" checked> usuario
+        {% else %}
+        <input type="radio" name="form[rol]" id="option2" value="ROLE_USER"> usuario
+        {% endif %}
+    </label>
+{% endblock %}
+
+{% block file_widget %}
+        {% set type = type|default('file') %}
+        <input type="file" name="form[image]" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">Subir imagen</label>
+{% endblock %}
+
+{% block body %}
+
+<div class="container my-5 py-5 z-depth-1">
+
+
+  <!--Section: Content-->
+  <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center">
+
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-10 col-12">
+        <p class="h4 mb-4">Crear usuario </p>
+        {% if error is defined %}
+        <p>{{icon|raw}} {{error}}</p>
+        {% endif %}
+        <!-- formulario -->
+        {{form_start(form)}}
+
+
+          <div class="form-row mb-4">
+            <!-- Usuario -->
+            <div class="col text-left">
+              <label>Usuario</label>
+              {{ form_widget(form.nick, {'attr': {"class" : "form-control",'placeholder':'alias','id':'validationDefaultUsername'}})}}
+            </div>
+            <!-- Usuario -->
+
+            <!-- Email -->
+            <div class="col text-left">
+              <label>Correo</label>
+              {{ form_widget(form.email, {'attr': {"class" : "form-control",'placeholder':'@correo','id':'defaultRegisterFormEmail'}})}}
+            </div>
+            <!-- Email -->
+          </div>
+          <div class="form-row mb-4">
+              <!-- Nombre -->
+              <div class="col text-left">
+                <label>Nombre</label>
+                {{ form_widget(form.name, {'attr': {"class" : "form-control",'placeholder':'nombre','id':'validationDefault01'}})}}
+              </div>
+              <!-- Nombre -->
+
+              <!-- Apellido1 -->
+              <div class="col text-left">
+                <label>Apellido 1</label>
+                {{ form_widget(form.surname1, {'attr': {"class" : "form-control",'placeholder':'1er Apellido','id':'validationDefault01'}})}}
+              </div>
+              <!-- Apellido1 -->
+
+              <!-- Apellido2 -->
+              <div class="col text-left">
+                <label>Apellido 2</label>
+                {{ form_widget(form.surname2, {'attr': {"class" : "form-control",'placeholder':'2o Apellido','id':'validationDefault01'}})}}
+              </div>
+              <!-- Apellido2 -->
+          </div>
+
+          <div class="form-row mb-4">
+              <!-- direccion -->
+              <div class="col text-left">
+                <label>Dirección</label>
+                {{ form_widget(form.direction, {'attr': {"class" : "form-control",'placeholder':'C/...','id':'validationDefault03'}})}}
+              </div>
+              <!-- direccion -->
+
+              <!-- telefono -->
+              <div class="col text-left">
+                <label>Teléfono</label>
+                {{ form_widget(form.phone, {'attr': {"class" : "form-control",'placeholder':'#########','id':'defaultRegisterPhonePassword'}})}}
+              </div>
+              <!-- telefono -->
+          </div>
+
+          <div class="form-row mb-4">
+              <!-- imagen -->
+              <div class="col text-left">
+                <label>Imagen de perfil</label>
+                <div class="custom-file">
+
+                    {{ form_widget(form.image, {'attr': {"class" : "form-control"}})}}
+                </div>
+              </div>
+              <!-- imagen -->
+
+              <!-- rol -->
+              <div class="col text-left">
+                <label>Rol</label>
+                <div class="btn-group btn-group-toggle col" data-toggle="buttons">
+                    {{ form_widget(form.rol, {'attr': {"class" : "form-control",'user-rol':'ROLE_USER'}})}}
+                </div>
+              </div>
+              <!-- rol -->
+          </div>
+
+          <div class="form-row mb-4">
+              <!-- direccion -->
+              <div class="col text-left">
+                <label>Contraseña</label>
+                {{ form_widget(form.password, {'attr': {"class" : "form-control",'id':'defaultRegisterFormPassword'}})}}
+              </div>
+              <!-- direccion -->
+
+              <!-- telefono -->
+              <div class="col text-left">
+                <label>Repetir contraseña</label>
+                {{ form_widget(form.confirmPass, {'attr': {"class" : "form-control"}})}}
+              </div>
+              <!-- telefono -->
+          </div>
+
+
+          <div class="form-row mb-4 justify-content-end">
+                <!-- submit -->
+              <div class="col-auto">
+                  <button class="btn btn-info my-4 btn-block" type="submit">enviar</button>
+              </div>
+              <!-- submit -->
+          </div>
+
+        {{form_end(form)}}
+        <!-- formulario -->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+
+  </section>
+  <!--Section: Content-->
+
+
+</div>
+
+{% endblock %}

@@ -24,9 +24,9 @@ class CategoryTb
     /**
      * @var string|null
      *
-     * @ORM\Column(name="parent_slug", type="string", length=60, nullable=true)
+     * @ORM\Column(name="parent", type="string", length=60, nullable=true)
      */
-    private $parent_slug;
+    private $parent_slg;
 
     /**
      * @var string|null
@@ -63,14 +63,14 @@ class CategoryTb
         return $this->id;
     }
 
-    public function getParentSlug(): ?string
+    public function getParentSlg(): ?string
     {
-        return $this->parent_slug;
+        return $this->parent_slg;
     }
 
-    public function setParentSlug(?string $parent_slug): self
+    public function setParentSlg(?string $parent_slg): self
     {
-        $this->name = $parent_slug;
+        $this->parent_slg = $parent_slg;
 
         return $this;
     }
@@ -140,7 +140,7 @@ class CategoryTb
         return $this->child;
     }
 
-    public function addChild(string $child)
+    public function addChild(array $child)
     {
         $this->child[] = $child;
 

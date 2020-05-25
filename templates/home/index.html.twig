@@ -10,9 +10,11 @@
 
 {% include '_includes/blocks/cat-description.html.twig' %}
 
+{% include '_includes/blocks/home-extracontent.html.twig' %}
+
 {{render(controller('App\\Controller\\ProductController::latestProducts',{'nprods' : 12})) }}
 
-
+{% include '_includes/blocks/home-extracontent2.html.twig' %}
 
 {% if loginError is defined %}
 {{render(path('ajax-login-error')) }}

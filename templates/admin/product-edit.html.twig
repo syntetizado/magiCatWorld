@@ -1,0 +1,176 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}editar producto{% endblock %}
+
+{% form_theme form _self %}
+
+{% block file_widget %}
+        {% set type = type|default('file') %}
+        <input type="file" name="form[image]" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">{{attr["product-image"]}}</label>
+{% endblock %}
+
+{% block body %}
+
+{% if product.name == NULL %}
+{% set productname = '' %}
+{% else %}
+{% set productname = product.name %}
+{% endif %}
+
+{% if product.description == NULL %}
+{% set productdescription = ''%}
+{% else %}
+{% set productdescription = product.description %}
+{% endif %}
+
+{% if product.price == NULL %}
+{% set productprice = ''%}
+{% else %}
+{% set productprice = product.price %}
+{% endif %}
+
+{% if product.warehousequantity == NULL %}
+{% set productwarehousequantity = ''%}
+{% else %}
+{% set productwarehousequantity = product.warehousequantity %}
+{% endif %}
+
+<div class="container my-5 py-5 z-depth-1">
+
+
+  <!--Section: Content-->
+  <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center">
+
+      <!--Grid column-->
+      <div class="col-lg-8 col-md-10 col-12">
+        <p class="h4 mb-4">Editar producto - <b>{{productname}}</b> </p>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <img src="{{asset('assets/img/product/' ~ product.image)}}" class="img-fluid shadow p-3 mb-5 bg-white rounded">
+            </div>
+        </div>
+        {% if error is defined %}
+        <p>{{icon|raw}} {{error}}</p>
+        {% endif %}
+        <!-- formulario -->
+        {{form_start(form)}}
+
+
+            <div class="form-row mb-4">
+                <!-- Nombre -->
+                <div class="col text-left">
+                  <label>Nombre</label>
+                  {{ form_widget(form.name, {'attr': {"class" : "form-control",'placeholder':productname}})}}
+                </div>
+                <!-- Nombre -->
+            </div>
+            <div class="form-row mb-4">
+                <!-- Precio -->
+                <div class="col text-left">
+                  <label>Precio</label>
+                  <span class="currency-custom">€</span>
+                  {{ form_widget(form.price, {'attr': {"class" : "form-control tinymce",'placeholder':productprice}})}}
+                </div>
+                <!-- Precio -->
+
+                <!-- Stock -->
+                <div class="col text-left">
+                  <label>Stock</label>
+                  {{ form_widget(form.warehousequantity, {'attr': {"class" : "form-control",'value':productwarehousequantity}})}}
+                </div>
+                <!-- Stock -->
+            </div>
+
+
+
+
+
+
+          <div class="form-row mb-4">
+              <!-- imagen -->
+              <div class="col text-left">
+                <label>Imagen</label>
+                <div class="custom-file">
+
+                    {{ form_widget(form.image, {'attr': {"class" : "form-control",'product-image':product.image}})}}
+                </div>
+              </div>
+              <!-- imagen -->
+
+              <!-- categoría -->
+              <div class="col text-left">
+                <label>Categoría</label>
+                <div class="btn-group btn-group-toggle col" data-toggle="buttons">
+                    {{ form_widget(form.category, {'attr': {"class" : "form-control",'product-category':product.category.slug}})}}
+                </div>
+              </div>
+              <!-- categoría -->
+          </div>
+
+          <div class="form-row mb-4">
+              <!-- Descripción -->
+              <div class="col text-left">
+                <label>Descripción</label>
+                {{ form_widget(form.description, {'attr': {"class" : "form-control textarea-bigger"}})}}
+              </div>
+              <!-- Descripción -->
+          </div>
+
+          <div class="form-row mb-4 justify-content-end">
+
+                <!-- submit -->
+              <div class="col-auto">
+                  <button class="btn btn-info my-4 btn-block" type="submit">enviar</button>
+              </div>
+              <!-- submit -->
+          </div>
+
+          <!-- Enviar -->
+
+
+
+        {{form_end(form)}}
+        <!-- formulario -->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+
+  </section>
+  <!--Section: Content-->
+    <h2>Opiniones</h2>
+    <table class="table col-12 table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Puntuación</th>
+                <th scope="col">Ver</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for review in reviews %}
+        <tr>
+            <th scope="col">{{review.title}}</th>
+            <th scope="col">{{review.rating}}</th>
+            <th scope="col">
+                <a href="{{path('show-review',{'id':review.id})}}">
+                    <button class="btn btn-info">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </a>
+            </th>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+{% endblock %}

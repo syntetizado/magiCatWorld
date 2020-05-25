@@ -59,9 +59,9 @@ class OrderTb
     /**
      * @var string|null
      *
-     * @ORM\Column(name="payment_method", type="string", length=65, nullable=true)
+     * @ORM\Column(name="payment", type="string", length=65, nullable=true)
      */
-    private $paymentMethod;
+    private $payment;
 
     /**
      * @var string|null
@@ -145,14 +145,14 @@ class OrderTb
         return $this;
     }
 
-    public function getPaymentMethod(): ?string
+    public function getPayment(): ?string
     {
-        return $this->paymentMethod;
+        return $this->payment;
     }
 
-    public function setPaymentMethod(?string $paymentMethod): self
+    public function setPayment(?string $payment): self
     {
-        $this->paymentMethod = $paymentMethod;
+        $this->payment = $payment;
 
         return $this;
     }

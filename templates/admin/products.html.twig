@@ -4,9 +4,22 @@
 
 {% block body %}
 
+<div class="content">
+    <div class="row">
+        <div class="col-auto">
+            <h2>Productos</h2>
+        </div>
+        <div class="col-auto">
+            <a href="{{path('create-product')}}">
+                <button class="btn btn-primary">
+                    Crear <i class="fas fa-plus ml-2"></i>
+                </button>
+            </a>
+        </div>
+    </div>
 
 
-<table class="table">
+<table class="table col-12 table-hover table-responsive-sm">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -15,6 +28,7 @@
             <th scope="col">Cantidad</th>
             <th scope="col">Editar</th>
             <th scope="col">Activo</th>
+            <th scope="col">Borrar</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +39,7 @@
             <th scope="col">{{product.price}} €</th>
             <th scope="col">{{product.warehousequantity}}</th>
             <th scope="col">
-                <a href="#">
+                <a href="{{path('edit-product',{'id':product.id})}}">
                     <button class="btn btn-info">
                         <i class="fas fa-edit"></i>
                     </button>
@@ -46,9 +60,16 @@
             </a>
             {% endif %}
             </th>
+            <th scope="col">
+            <a href="{{path('delete-product',{'id':product.id})}}">
+                <button class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </a>
+            </th>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-
+</div>
 {% endblock %}

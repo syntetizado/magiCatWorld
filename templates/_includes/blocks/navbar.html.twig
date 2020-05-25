@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="{{ path('index') }}">Inicio</a>
+  <a class="navbar-brand" href="{{ path('index') }}">Categorias</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -13,8 +13,8 @@
             {% set active = false %}
 
             {% if category.child != NULL %}
-                {% for childslug in category.child %}
-                    {% if currentPath == "/categoria/" ~ childslug or currentPath == "/categoria/" ~ category.slug %}
+                {% for child in category.child %}
+                    {% if currentPath == "/categoria/" ~ child.slug or currentPath == "/categoria/" ~ category.slug %}
                         {% set active = true %}
                     {% endif %}
                 {% endfor %}
@@ -30,9 +30,8 @@
                     </a>
 
                 <ul class="dropdown-menu">
-                    {% for childslug in category.child %}
-                        {% set targetURL = path('category', { 'slug': childslug }) %}
-                        <li><a href="{{targetURL}}">{{childslug}}</a></li>
+                    {% for child in category.child %}
+                    <li><a href="{{path('category', { 'slug': child.slug })}}">{{child.name}}</a></li>
                     {% endfor %}
                 </ul>
 
@@ -47,19 +46,17 @@
             {% endif %}
         {% endfor %}
     </ul>
-
-    <div class="content other-links-area">
-
-    </div>
-
-    <div class="search-area">
+    <div class="search-area content">
       <form class="form-inline my-2 my-lg-0" action="{{path('product-search')}}" method="post">
-        <input class="form-control mr-sm-2" type="text" name="search" placeholder="Búsqueda">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar Producto</button>
+        <input class="form-control mr-sm-2 col-sm-7" type="text" name="search" placeholder="Buscar productos...">
+        <button class="btn btn-secondary my-2 ml-1 my-sm-0 col-sm-4" type="submit">Buscar</button>
       </form>
     </div>
 
     <div class="login-area">
+        <a href="{{path('contactform')}}"><button class="btn btn-primary">contacto</button></a>
+
+        <button class="btn btn-primary mr-2 ml-2">Cesta</button>
         {% if app.user %}
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">
             <div class="row">

@@ -82,6 +82,8 @@ class ProductTb
 
     private $features=[];
 
+    private $quantity;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -193,5 +195,17 @@ class ProductTb
     public function getFeatures()
     {
         return $this->features;
+    }
+
+    public function setQuantity(String $quantity)
+    {
+        $this->quantity = intval($quantity);
+
+        return $this;
+    }
+
+    public function getQuantity(): ?Int
+    {
+        return intval($this->quantity);
     }
 }

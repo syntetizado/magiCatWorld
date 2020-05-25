@@ -1,13 +1,43 @@
 {% if products is defined %}
+
+{% set image = asset('/assets/img/category/') ~ category.image %}
+
+<style media="screen">
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+.my-bg{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    background-image: url("{{image}}");
+    background-blend-mode: exclusion;
+}
+
+.my-text {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    color: #f1f1f1;
+    height: 200px;
+}
+
+.title {
+    font-family: 'Kaushan Script', cursive;
+}
+
+</style>
+
+
 <div class="container mt-5">
 
   <!--Section: Content-->
   <section class="dark-grey-text text-center">
+      <div class="container my-bg px-5">
 
-    <!-- Section heading -->
-    <h3 class="font-weight-bold mb-4 pb-2">{{category.name}}</h3>
-    <!-- Section description -->
-    <p class="grey-text w-responsive mx-auto mb-5 font-weight-bold">{{category.description}}</p>
+            <div class="my-text shadow p-5 mb-5 rounded">
+                <h1 class="title">{{category.name}}</h1>
+                <h4>{{category.description}}</h4>
+            </div>
+
+      </div>
 
   	<!-- Grid row -->
     <div class="row">

@@ -1,0 +1,135 @@
+{% block choice_widget %}
+
+        {% set type = type|default('choice') %}
+    <label class="btn btn-secondary">
+        {% if attr["user-rol"] == 'ROLE_ADMIN' %}
+        <input type="radio" name="form[rol]" id="option1" autocomplete="off" value="ROLE_ADMIN" checked> admin
+        {% else %}
+        <input type="radio" name="form[rol]" id="option1" autocomplete="off" value="ROLE_ADMIN"> admin
+        {% endif %}
+    </label>
+    <label class="btn btn-secondary">
+        {% if attr["user-rol"] == 'ROLE_USER' %}
+        <input type="radio" name="form[rol]" id="option2" value="ROLE_USER" checked> usuario
+        {% else %}
+        <input type="radio" name="form[rol]" id="option2" value="ROLE_USER"> usuario
+        {% endif %}
+    </label>
+{% endblock %}
+
+
+{% if product. == NULL %}
+{% set product = ''%}
+{% else %}
+{% set product = product. %}
+{% endif %}
+
+<div class="container my-5 py-5 z-depth-1">
+
+  <!--Section: Content-->
+  <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center">
+
+      <!--Grid column-->
+      <div class="col-lg-8 col-md-10 col-12">
+        <p class="h4 mb-4">Editar cesta - <b>{{order.name}}</b> </p>
+        {% if error is defined %}
+        <p>{{icon|raw}} {{error}}</p>
+        {% endif %}
+        <!-- formulario -->
+        {{form_start(form)}}
+
+            <div class="form-row mb-4">
+                <!-- Nombre -->
+                <div class="col text-left">
+                  <label>Nombre</label>
+                  {{ form_widget(form.name, {'attr': {"class" : "form-control",'placeholder':order.name}})}}
+                </div>
+                <!-- Nombre -->
+
+                <!-- Stock -->
+                <div class="col text-left">
+                  <label>Dirección</label>
+                  {{ form_widget(form.direction, {'attr': {"class" : "form-control",'placeholder':orderdirection}})}}
+                </div>
+                <!-- Stock -->
+            </div>
+
+            <div class="form-row mb-4">
+                <!-- Precio total -->
+                <div class="col text-left">
+                  <label>Total</label>
+                  <span class="currency-custom">€</span>
+                  {{ form_widget(form.totalPrice, {'attr': {"class" : "form-control tinymce",'placeholder':order.totalPrice,'disabled':true}})}}
+                </div>
+                <!-- Precio total -->
+
+                <!-- Estado orden -->
+                <div class="col text-left">
+                  <label>Estado de cesta</label>
+                  {{ form_widget(form.deliveryStatus, {'attr': {"class" : "form-control tinymce",'placeholder':order.deliveryStatus}})}}
+                </div>
+                <!-- Estado orden -->
+            </div>
+
+          <div class="form-row mb-4 justify-content-end">
+
+                <!-- submit -->
+              <div class="col-auto">
+                  <button class="btn btn-info my-4 btn-block" type="submit">enviar</button>
+              </div>
+              <!-- submit -->
+          </div>
+
+          <!-- Enviar -->
+
+
+
+        {{form_end(form)}}
+        <!-- formulario -->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+
+  </section>
+  <!--Section: Content-->
+    <h2>Productos de la cesta</h2>
+    <div class="row">
+        <table class="table col-12 table-hover table-responsive-sm text-nowrap text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Ficha</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+            <tr>
+                <td class="align-middle" scope="col">{{product.name}}</td>
+                <td class="align-middle" scope="col">{{product.price}} €</td>
+                <td class="align-middle" scope="col">{{product.quantity}}</td>
+                <td class="align-middle w-25" scope="col">
+                    <img class="img-fluid" src="{{asset('assets/img/product/' ~ product.image)}}">
+                </td>
+                <td class="align-middle" scope="col">
+                    <a href="{{path('edit-product',{'id':product.id})}}">
+                        <button class="btn btn-info">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </a>
+                </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>

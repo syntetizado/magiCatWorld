@@ -36,6 +36,16 @@ class ProductFeatureTb
      *   @ORM\JoinColumn(name="id_product", referencedColumnName="id")
      * })
      */
+    private $product;
+
+    /**
+     * @var \ProductTb
+     *
+     * @ORM\ManyToOne(targetEntity="ProductTb")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_product", referencedColumnName="id")
+     * })
+     */
     private $idProduct;
 
     public function getId(): ?string
@@ -57,12 +67,24 @@ class ProductFeatureTb
 
     public function getProduct(): ?string
     {
-        return $this->idProduct;
+        return $this->product;
     }
 
     public function setProduct(?ProductTb $product): self
     {
         $this->name = $product;
+
+        return $this;
+    }
+
+    public function getIdProduct(): ?ProductTb
+    {
+        return $this->idProduct;
+    }
+
+    public function setIdProduct(?ProductTb $idProduct): self
+    {
+        $this->idProduct = $idProduct;
 
         return $this;
     }

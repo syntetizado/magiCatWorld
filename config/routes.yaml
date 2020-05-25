@@ -78,6 +78,15 @@ cesta-agregar:
     controller: App\Controller\OrderController::addToOrder
 
 ########################################################
+######################## CONTACTO ######################
+########################################################
+
+contactform:
+    path: /contacto
+    controller: App\Controller\HomeController::sendForm
+
+
+########################################################
 ######################## ADMIN #########################
 ########################################################
 
@@ -123,6 +132,62 @@ active-review:
     path: /admin/active-review/{id?}
     controller: App\Controller\AdminController::banReview
 
-active-order:
-    path: /admin/active-order/{id?}
-    controller: App\Controller\AdminController::activeOrder
+delete-user:
+    path: /admin/delete-user/{id?}
+    controller: App\Controller\AdminController::deleteUser
+
+delete-product:
+    path: /admin/delete-product/{id?}
+    controller: App\Controller\AdminController::deleteProduct
+
+delete-item:
+    path: /admin/delete-product/{product?}/{order?}
+    controller: App\Controller\AdminController::deleteOrderItem
+
+delete-message:
+    path: /admin/delete-message/{id?}
+    controller: App\Controller\AdminController::deleteMessage
+
+delete-category:
+    path: /admin/delete-category/{id?}
+    controller: App\Controller\AdminController::deleteCategory
+
+#######################################################
+
+show-message:
+    path: /admin/mensajes/msg/{id?}
+    controller: App\Controller\AdminController::showMessage
+
+edit-user:
+    path: /admin/usuarios/usr/{id?}
+    controller: App\Controller\AdminController::editUser
+
+edit-product:
+    path: /admin/productos/pd/{id?}
+    controller: App\Controller\AdminController::editProduct
+
+show-review:
+    path: /admin/opiniones/rw/{id?}
+    controller: App\Controller\AdminController::showReview
+
+edit-order:
+    path: /admin/ordenes/od/{id?}
+    controller: App\Controller\AdminController::editOrder
+
+edit-category:
+    path: /admin/categorias/catr/{id?}
+    controller: App\Controller\AdminController::editCategory
+
+#############################################################
+
+create-user:
+    path: /admin/usuarios/nuevo
+    controller: App\Controller\AdminController::createUser
+
+create-product:
+    path: /admin/productos/nuevo/{id?}
+    controller: App\Controller\AdminController::createProduct
+
+create-category:
+    path: /admin/categorias/nueva
+    controller: App\Controller\AdminController::createCategory

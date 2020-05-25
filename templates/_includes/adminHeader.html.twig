@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="row" style="margin: auto">
 			<div class="col">
-				<p class="ml-3 py-1"><b>Panel de admin || admin: {{app.user.name}}</b>
+				<p class="ml-3 py-1"><b>Panel de admin || {{app.user.email}}</b>
 			</div>
 			<div class="col-12 col-sm-auto mt-2">
 				{% set currentRoute = path(app.request.attributes.get('_route')) %}

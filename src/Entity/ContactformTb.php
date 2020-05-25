@@ -38,9 +38,9 @@ class ContactformTb
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="date", type="date", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
-    private $date = 'CURRENT_TIMESTAMP';
+    private $date;
 
     /**
      * @var \UserTb

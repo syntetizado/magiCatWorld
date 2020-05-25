@@ -14,7 +14,3 @@ main {
     text-align: justify;
     background-color: #f4f4f4;
 }
-
-.no-click {
-    pointer-events: none;
-}

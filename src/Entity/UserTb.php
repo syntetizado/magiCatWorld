@@ -98,7 +98,7 @@ class UserTb implements UserInterface
     private $rol;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $registerDate;
 

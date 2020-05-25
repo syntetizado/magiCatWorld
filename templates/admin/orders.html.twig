@@ -1,50 +1,59 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}usuarios{% endblock %}
+{% block title %}Cestas{% endblock %}
 
 {% block body %}
 
+<div class="content">
+    <h2>Cestas</h2>
+</div>
 
-
-<table class="table">
+<table class="table col table-hover table-responsive-sm text-nowrap">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">nick</th>
-            <th scope="col">email</th>
-            <th scope="col">Fecha de registro</th>
+            <th scope="col">Nombre</th>
+            <th scope="col text-nowrap">Precio</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Estado</th>
             <th scope="col">Editar</th>
-            <th scope="col">Activo</th>
         </tr>
     </thead>
     <tbody>
-    {% for user in users %}
+    {% for order in orders %}
         <tr>
-            <th scope="col">{{user.id}}</th>
-            <th scope="col">{{user.nick}}</th>
-            <th scope="col">{{user.email}}</th>
-            <th scope="col">{{user.registerdate|date('j/M/Y')}}</th>
+            <th scope="col">{{order.id}}</th>
+            <th scope="col">{{order.name}}</th>
+            <th scope="col text-nowrap">{{order.totalprice}} €</th>
+            {% if   order.deliverystatus == "PAID" or
+                    order.deliverystatus == "DELIVERING" or
+                    order.deliverystatus == "CLOSED" %}
+            <th scope="col">{{order.date|date('j/M/Y')}}</th>
+            {% else %}
+            <th scope="col">...</th>
+            {% endif %}
+
             <th scope="col">
-                <a href="#">
+            {% if order.deliverystatus == "OPEN" %}
+                <i class="fas fa-edit ml-2"></i>
+            {% endif %}
+            {% if order.deliverystatus == "PAID" %}
+                <i class="fas fa-money-bill-alt"></i>
+            {% endif %}
+            {% if order.deliverystatus == "DELIVERING" %}
+                <i class="fas fa-truck ml-2"></i>
+            {% endif %}
+            {% if order.deliverystatus == "REACHED" %}
+                <i class="fas fa-check ml-2"></i>
+            {% endif %}
+            </th>
+
+            <th scope="col">
+                <a href="{{path('edit-order',{'id':order.id})}}">
                     <button class="btn btn-primary">
                         <i class="fas fa-edit"></i>
                     </button>
                 </a>
-            </th>
-            <th scope="col">
-            {% if user.active %}
-            <a href="{{path('active-user')}}">
-                <button class="btn btn-success">
-                    <i class="fas fa-check"></i>
-                </button>
-            </a>
-            {% else %}
-            <a href="{{path('active-user',{'id':user.id})}}">
-                <button class="btn btn-danger">
-                    <i class="fas fa-times"></i>
-                </button>
-            </a>
-            {% endif %}
             </th>
         </tr>
     {% endfor %}

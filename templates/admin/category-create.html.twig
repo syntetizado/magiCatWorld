@@ -1,0 +1,95 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Crear categoria{% endblock %}
+
+{% form_theme form _self %}
+
+{% block file_widget %}
+        {% set type = type|default('file') %}
+        <input type="file" name="form[image]" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">Sube tu imagen</label>
+{% endblock %}
+
+{% block body %}
+
+<div class="container my-5 py-5 z-depth-1">
+
+
+  <!--Section: Content-->
+  <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center">
+
+      <!--Grid column-->
+      <div class="col-lg-8 col-md-10 col-12">
+        <p class="h4 mb-4">Crear categoría</b> </p>
+        {% if error is defined %}
+        <p>{{icon|raw}} {{error}}</p>
+        {% endif %}
+        <!-- formulario -->
+        {{form_start(form)}}
+            <div class="form-row mb-4">
+                <!-- Nombre -->
+                <div class="col text-left">
+                  <label>Nombre</label>
+                  {{ form_widget(form.name, {'attr': {"class" : "form-control"}})}}
+                </div>
+                <!-- Nombre -->
+            </div>
+
+            <div class="form-row mb-4">
+                <!-- imagen -->
+                <div class="col text-left">
+                  <label>Imagen</label>
+                  <div class="custom-file">
+                      {{ form_widget(form.image, {'attr': {"class" : "form-control"}})}}
+                  </div>
+                </div>
+                <!-- imagen -->
+                <!-- Categoría Padre -->
+                <div class="col text-left">
+                  <label>Categoría padre</label>
+                  {{ form_widget(form.parentSlg, {'placeholder':'**Categoría Principal**','attr': {"class" : "form-control"}})}}
+                </div>
+                <!-- Categoría Padre -->
+            </div>
+
+            <div class="form-row mb-4">
+
+                <!-- Descripción -->
+                <div class="col text-left">
+                  <label>Descripción</label>
+                  {{ form_widget(form.description, {'attr': {"class" : "form-control textarea-bigger"}})}}
+                </div>
+                <!-- Descripción -->
+            </div>
+
+          <div class="form-row mb-4 justify-content-end">
+                <!-- submit -->
+              <div class="col-auto">
+                  <button class="btn btn-info my-4 btn-block" type="submit">enviar</button>
+              </div>
+              <!-- submit -->
+          </div>
+
+          <!-- Enviar -->
+
+
+
+        {{form_end(form)}}
+        <!-- formulario -->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+
+  </section>
+  <!--Section: Content-->
+
+</div>
+{% endblock %}

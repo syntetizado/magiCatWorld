@@ -1,3 +1,9 @@
+<style media="screen">
+    .resizable{
+        font-size: calc(20px + 0.5vw);
+    }
+</style>
+
 <!-- Modal -->
 <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -33,11 +39,11 @@
                     </div>
                     <div class="col-4 my-auto text-left">
                         <h3 class="text-muted">Usuario </h3>
-                        <h1 class="ml-4"><b>{{app.user.nick}}</b> </h1>
+                        <h1 class="ml-4 resizable"><b>{{app.user.nick}}</b> </h1>
                     </div>
                     {% if app.user.rol == 'ROLE_ADMIN' %}
                     <div class="col">
-                        <a href="{{path('admin')}}"><button class="btn btn-primary">Panel de admin</button></a>
+                        <a href="{{path('admin')}}"><button class="btn btn-primary">Panel admin</button></a>
                     </div>
                     {% endif %}
 

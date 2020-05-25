@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 //Importamos las entidades
 use App\Entity\CategoryTb;
 
+//Y los tipos de input de formularios necesarios
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 class HomeController extends AbstractController
 {
     public function index(){
@@ -25,7 +28,7 @@ class HomeController extends AbstractController
         $categories=[]; $subcategories=[];
 
         foreach ($search as $category) {
-            if ($category->getParentSlug() == NULL) {
+            if ($category->getParentSlg() == NULL) {
                 $categories[] = $category;
             } else {
                 $subcategories[] = $category;
@@ -34,14 +37,15 @@ class HomeController extends AbstractController
 
         foreach ($subcategories as $subcategory) {
           foreach ($categories as $category) {
-            if ($subcategory->getParentSlug() == $category->getSlug()){
-                $category->addChild($subcategory->getSlug());
+            if ($subcategory->getParentSlg() == $category->getSlug()){
+                $category->addChild(['slug' => $subcategory->getSlug(),'name'=>$subcategory->getName()]);
             }
           }
         }
-
+        $categories2=$categories;
         return $this->render('_includes/blocks/navbar.html.twig', [
             'categories' => $categories,
+            'categories2' => $categories2,
             'subcategories' => $subcategories,
             'currentPath' => $currentPath
         ]);
@@ -80,6 +84,21 @@ class HomeController extends AbstractController
     public function preLogout(){
         return $this->render('home/index.html.twig', [
             'logout' => true
+        ]);
+    }
+
+    public function sendForm(){
+
+        $form = $this->createFormBuilder()
+			->add('email', TextType::class,['required' => false])
+            ->add('name', TextType::class,['required' => false])
+            ->add('topic', TextType::class,['required' => false])
+            ->add('description', TextareaType::class,['required' => false])
+        ->getForm();
+
+
+        return $this->render('home/contactForm.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

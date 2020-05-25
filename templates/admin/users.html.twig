@@ -4,51 +4,72 @@
 
 {% block body %}
 
+<div class="content">
+    <div class="row">
+        <div class="col-auto">
+            <h2>Usuarios</h2>
+        </div>
+        <div class="col-auto">
+            <a href="{{path('create-user')}}">
+                <button class="btn btn-primary">
+                    Crear <i class="fas fa-plus ml-2"></i>
+                </button>
+            </a>
+        </div>
+    </div>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nick</th>
-            <th scope="col">Email</th>
-            <th scope="col">Fecha de registro</th>
-            <th scope="col">Editar</th>
-            <th scope="col">Activo</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for user in users %}
-        <tr>
-            <th scope="col">{{user.id}}</th>
-            <th scope="col">{{user.nick}}</th>
-            <th scope="col">{{user.email}}</th>
-            <th scope="col">{{user.registerdate|date('j/M/Y')}}</th>
-            <th scope="col">
-                <a href="#">
-                    <button class="btn btn-info">
-                        <i class="fas fa-edit"></i>
+    <table class="table col-12 table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nick</th>
+                <th scope="col">Email</th>
+                <th scope="col">Fecha de registro</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Activo</th>
+                <th scope="col">Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="col">{{user.id}}</th>
+                <th scope="col">{{user.nick}}</th>
+                <th scope="col">{{user.email}}</th>
+                <th scope="col">{{user.registerdate|date('j/M/Y')}}</th>
+                <th scope="col">
+                    <a href="{{path('edit-user',{'id':user.id})}}">
+                        <button class="btn btn-info">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </a>
+                </th>
+                <th scope="col">
+                {% if user.active %}
+                <a href="{{path('active-user',{'id':user.id})}}">
+                    <button class="btn btn-success">
+                        <i class="fas fa-check"></i>
                     </button>
                 </a>
-            </th>
-            <th scope="col">
-            {% if user.active %}
-            <a href="{{path('active-user',{'id':user.id})}}">
-                <button class="btn btn-success">
-                    <i class="fas fa-check"></i>
-                </button>
-            </a>
-            {% else %}
-            <a href="{{path('active-user',{'id':user.id})}}">
-                <button class="btn btn-danger">
-                    <i class="fas fa-times"></i>
-                </button>
-            </a>
-            {% endif %}
-            </th>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
+                {% else %}
+                <a href="{{path('active-user',{'id':user.id})}}">
+                    <button class="btn btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a>
+                {% endif %}
+                </th>
+                <th scope="col">
+                <a href="{{path('delete-user',{'id':user.id})}}">
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </a>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

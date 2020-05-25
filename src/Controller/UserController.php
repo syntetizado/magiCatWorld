@@ -27,8 +27,6 @@ class UserController extends AbstractController
 
     public function login(AuthenticationUtils $authenticationUtils,Security $security){
 
-        die(var_dump($security));
-
         if (!$security->getUser()){
             return $this->render('home/index.html.twig', [
                 'loginError' => true

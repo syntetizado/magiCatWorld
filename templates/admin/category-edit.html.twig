@@ -1,0 +1,145 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}editar categoria{% endblock %}
+
+{% form_theme form _self %}
+
+{% block file_widget %}
+        {% set type = type|default('file') %}
+        <input type="file" name="form[image]" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">{{attr["category-image"]}}</label>
+{% endblock %}
+
+{% block body %}
+
+<div class="container my-5 py-5 z-depth-1">
+
+
+  <!--Section: Content-->
+  <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center">
+
+      <!--Grid column-->
+      <div class="col-lg-8 col-md-10 col-12">
+        <p class="h4 mb-4">Editar categoria - <b>{{category.name}}</b> </p>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <img src="{{asset('assets/img/category/' ~ category.image)}}" class="img-fluid shadow p-3 mb-5 bg-white rounded">
+            </div>
+        </div>
+        {% if error is defined %}
+        <p>{{icon|raw}} {{error}}</p>
+        {% endif %}
+        <!-- formulario -->
+        {{form_start(form)}}
+            <div class="form-row mb-4">
+                <!-- Nombre -->
+                <div class="col text-left">
+                  <label>Nombre</label>
+                  {{ form_widget(form.name, {'attr': {"class" : "form-control",'placeholder':category.name}})}}
+                </div>
+                <!-- Nombre -->
+            </div>
+
+            <div class="form-row mb-4">
+                <!-- imagen -->
+                <div class="col text-left">
+                  <label>Imagen</label>
+                  <div class="custom-file">
+                      {{ form_widget(form.image, {'attr': {"class" : "form-control",'category-image':category.image}})}}
+                  </div>
+                </div>
+                <!-- imagen -->
+                <!-- Categoría Padre -->
+                <div class="col text-left">
+                  <label>Categoría padre</label>
+                  {{ form_widget(form.parentSlg, {'placeholder':'**Categoría Principal**','attr': {"class" : "form-control"}})}}
+                </div>
+                <!-- Categoría Padre -->
+            </div>
+
+            <div class="form-row mb-4">
+
+                <!-- Descripción -->
+                <div class="col text-left">
+                  <label>Descripción</label>
+                  {{ form_widget(form.description, {'attr': {"class" : "form-control textarea-bigger",'value':category.description}})}}
+                </div>
+                <!-- Descripción -->
+            </div>
+
+          <div class="form-row mb-4 justify-content-end">
+                <!-- submit -->
+              <div class="col-auto">
+                  <button class="btn btn-info my-4 btn-block" type="submit">enviar</button>
+              </div>
+              <!-- submit -->
+          </div>
+
+          <!-- Enviar -->
+
+
+
+        {{form_end(form)}}
+        <!-- formulario -->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+
+  </section>
+  <!--Section: Content-->
+
+      <!--Tabla de productos-->
+      <div class="row">
+          <div class="col-auto">
+              <h2>Productos</h2>
+          </div>
+          <div class="col-auto">
+              <a href="{{path('create-product',{'id':category.id})}}">
+                  <button class="btn btn-primary">
+                      Crear <i class="fas fa-plus ml-2"></i>
+                  </button>
+              </a>
+          </div>
+      </div>
+      <div class="row">
+          <table class="table col-12 table-hover table-responsive-sm text-nowrap text-center">
+              <thead>
+                  <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Imagen</th>
+                      <th scope="col">Ficha</th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for product in products %}
+              <tr>
+                  <td class="align-middle" scope="col">{{product.name}}</td>
+                  <td class="align-middle" scope="col">{{product.price}} €</td>
+                  <td class="align-middle w-25" scope="col">
+                      <img class="img-fluid" src="{{asset('assets/img/product/' ~ product.image)}}">
+                  </td>
+                  <td class="align-middle" scope="col">
+                      <a href="{{path('edit-product',{'id':product.id})}}">
+                          <button class="btn btn-info">
+                              <i class="fas fa-edit"></i>
+                          </button>
+                      </a>
+                  </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+      </div>
+      <!--Tabla de productos-->
+
+</div>
+{% endblock %}

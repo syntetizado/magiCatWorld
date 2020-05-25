@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacto{% endblock %}
+
+{% block body %}
+
+<style>
+.border-top {
+	border-top: 5px solid #a14343 !important;
+	border-top-left-radius: .25rem!important;
+	border-top-right-radius: .25rem!important;
+}
+</style>
+
+
+<div class="container my-5">
+
+
+
+
+  <!--Section: Content-->
+  <section class="text-center dark-grey-text mb-5">
+
+    <div class="card">
+      <div class="card-body rounded-top border-top border-secondary p-5">
+
+        <!-- Section heading -->
+        <h3 class="font-weight-bold my-4">Contacta con nosotros</h3>
+        <!-- Section description -->
+        <p class="font-weight-light mx-auto mb-4 pb-2">Estaremos encantados de resolver cualquier duda<br> que tenga. Estaremos atentos a todas sus preguntas.</p>
+{{ form_start(form) }}
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <!-- Name -->
+			  {{ form_widget(form.name, {'attr': {"class" : "form-control",'placeholder':'Nombre','id':'name'}})}}
+
+            </div>
+            <div class="col-md-6 mb-4">
+
+              <!-- Email -->
+			  {{ form_widget(form.email, {'attr': {"class" : "form-control",'placeholder':'Email','id':'email'}})}}
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-4">
+
+              <!-- Subject -->
+			  {{ form_widget(form.topic, {'attr': {"class" : "form-control",'placeholder':'Tema','id':'subject'}})}}
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="form-group mb-4">
+					{{ form_widget(form.description, {'attr': {"class" : "form-control rounded textarea-bigger",'placeholder':'Escribe aquí tus dudas...','id':'message','rows':3}})}}
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+              </div>
+
+            </div>
+          </div>
+{{ form_end(form) }}
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Content-->
+
+</div>
+
+{% endblock %}
