@@ -214,8 +214,6 @@ class OrderController extends AbstractController
     //esta funcion añade un item al carrito
     public function orderAddItem(Request $request,Security $security)
     {
-        $this->varTest($newItem);
-        return $this->RedirectToRoute('index');
         if ($security->getUser()) {
             $quantity = $request->query->get('quantity');
             $product = $this->getDoctrine()
@@ -239,6 +237,5 @@ class OrderController extends AbstractController
         } else {
             return $this->RedirectToRoute('index');
         }
-
     }
 }
