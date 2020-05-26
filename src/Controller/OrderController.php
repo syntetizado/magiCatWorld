@@ -164,14 +164,17 @@ class OrderController extends AbstractController
     public function productIteminOrder(ProductTb $product, Security $security){
 
         $itemsInCurrentOrder = $this->itemsOnOrder($this->currentOrder($security));
-        $targetItem=NULL;
+
+        $found = false;
         foreach ($itemsInCurrentOrder as $item) {
-            $targetItem = $item;
+            if ($item->getId() == $product->getId()) {
+                $found = true;
+                $targetItem = $item;
+            }
         }
 
-        if ($targetItem) {
-            $product = $targetItem;
-            return $product;
+        if ($found) {
+            return $targetItem;
         } else {
             return false;
         }
@@ -289,6 +292,7 @@ class OrderController extends AbstractController
                                 ->getRepository(ProductsonorderTb::class)
                                 ->findOneBy(['idProduct'=> $product->getId()]);
                 $quantity = $product->getQuantity()+$quantity;
+
                 $item->setQuantity($quantity);
                 $em->persist($item);
 

@@ -719,32 +719,6 @@ class AdminController extends AbstractController
         }
         $em->flush();
 
-        //limpiamos las id vacias
-        $empties = $items->findBy(['idProduct' =>'']);
-
-        foreach ($empties as $item) {
-            $em->remove($item);
-        }
-
-        $empties = $items->findBy(['idProduct' =>NULL]);
-
-        foreach ($empties as $item) {
-            $em->remove($item);
-        }
-
-        $empties = $items->findBy(['idOrder' =>'']);
-
-        foreach ($empties as $item) {
-            $em->remove($item);
-        }
-
-        $empties = $items->findBy(['idOrder' =>NULL]);
-
-        foreach ($empties as $item) {
-            $em->remove($item);
-        }
-
-        $em->flush();
     }
 
     public function updateAllOrders(){
