@@ -145,11 +145,9 @@ class AdminController extends AbstractController
             }
             if ($form->get('nick')->getData() != NULL) {
                 $user->setNick($form->get('nick')->getData());
-                $slug = strtolower($user->getNick());
-                $search = ['/', ',', '.','*',' ', 'á', 'é', 'í', 'ó', 'ú'];
-                $replace = ['', '', '','','-', 'a', 'e', 'i', 'o', 'u'];
-                $slug = str_replace($search, $replace, $slug);
-
+                $slug = $user->getNick();
+                $slug = preg_replace('/[^a-zA-Z0-9]/', "", $slug);
+                $slug = strtolower($slug);
                 if ($user_repo->findBy(['slug' => $slug])){
                     $slug=$slug."x";
                 }
@@ -281,10 +279,9 @@ class AdminController extends AbstractController
             }
             if ($form->get('nick')->getData() != NULL) {
                 $user->setNick($form->get('nick')->getData());
-                $slug = strtolower($user->getNick());
-                $search = ['/', ',', '.','*',' ', 'á', 'é', 'í', 'ó', 'ú'];
-                $replace = ['', '', '','','-', 'a', 'e', 'i', 'o', 'u'];
-                $slug = str_replace($search, $replace, $slug);
+                $slug = $user->getNick();
+                $slug = preg_replace('/[^a-zA-Z0-9]/', "", $slug);
+                $slug = strtolower($slug);
 
                 if ($user_repo->findBy(['slug' => $slug])){
                     $slug=$slug."x";
@@ -437,10 +434,9 @@ class AdminController extends AbstractController
 
             if ($form->get('name')->getData() != NULL) {
                 $product->setName($form->get('name')->getData());
-                $slug = strtolower($product->getName());
-                $search = ['/', ',', '.','*',' ', 'á', 'é', 'í', 'ó', 'ú'];
-                $replace = ['', '', '','','-', 'a', 'e', 'i', 'o', 'u'];
-                $slug = str_replace($search, $replace, $slug);
+                $slug = $product->getName();
+                $slug = preg_replace('/[^a-zA-Z0-9]/', "", $slug);
+                $slug = strtolower($slug);
 
                 if ($product_repo->findBy(['slug' => $slug])){
                     $slug=$slug."x";
@@ -470,7 +466,7 @@ class AdminController extends AbstractController
                 $image_name = $product->getSlug() . '.' . $image->guessExtension();
 
                 // Movemos el archivo donde queremos que esté
-                $image->move('assets/img/user', $image_name);
+                $image->move('assets/img/product', $image_name);
                 $product->setImage($image_name);
             }
 
@@ -533,10 +529,9 @@ class AdminController extends AbstractController
 
             if ($form->get('name')->getData() != NULL) {
                 $product->setName($form->get('name')->getData());
-                $slug = strtolower($product->getName());
-                $search = ['/', ',', '.','*',' ', 'á', 'é', 'í', 'ó', 'ú'];
-                $replace = ['', '', '','','-', 'a', 'e', 'i', 'o', 'u'];
-                $slug = str_replace($search, $replace, $slug);
+                $slug = $product->getName();
+                $slug = preg_replace('/[^a-zA-Z0-9]/', "", $slug);
+                $slug = strtolower($slug);
 
                 if ($product_repo->findBy(['slug' => $slug])){
                     $slug=$slug."x";
@@ -566,7 +561,7 @@ class AdminController extends AbstractController
                 $image_name = $product->getSlug() . '.' . $image->guessExtension();
 
                 // Movemos el archivo donde queremos que esté
-                $image->move('assets/img/user', $image_name);
+                $image->move('assets/img/product', $image_name);
                 $product->setImage($image_name);
             }
 
@@ -964,10 +959,9 @@ class AdminController extends AbstractController
 
                 $category->setName($form->get('name')->getData());
 
-                $slug = strtolower($category->getName());
-                $search = ['/', ',', '.','*',' ', 'á', 'é', 'í', 'ó', 'ú'];
-                $replace = ['', '', '','','-', 'a', 'e', 'i', 'o', 'u'];
-                $slug = str_replace($search, $replace, $slug);
+                $slug = $category->getName();
+                $slug = preg_replace('/[^a-zA-Z0-9]/', "", $slug);
+                $slug = strtolower($slug);
 
                 if ($category_repo->findBy(['slug' => $slug])){
                     $slug=$slug."x";
@@ -1054,10 +1048,9 @@ class AdminController extends AbstractController
 
                 $category->setName($form->get('name')->getData());
 
-                $slug = strtolower($category->getName());
-                $search = ['/', ',', '.','*',' ', 'á', 'é', 'í', 'ó', 'ú'];
-                $replace = ['', '', '','','-', 'a', 'e', 'i', 'o', 'u'];
-                $slug = str_replace($search, $replace, $slug);
+                $slug = $category->getName();
+                $slug = preg_replace('/[^a-zA-Z0-9]/', "", $slug);
+                $slug = strtolower($slug);
 
                 if ($category_repo->findBy(['slug' => $slug])){
                     $slug=$slug."x";

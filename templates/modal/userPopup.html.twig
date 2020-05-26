@@ -31,10 +31,8 @@
       <div class="modal-body mx-3 pt-2 px-0">
             {% if app.user %}
                 <div class="row px-4 py-2 mx-0 bg-secondary">
-                    <div class="col-4 btn btn-primary px-2 py-1">
-                        {% if app.user.image == "user-default.png" %}
-                        personalizar
-                        {% endif %}
+                    <div class="col-4 view px-2 py-1">
+
                       <img class="img-fluid mx-0" src="{{asset('assets/img/user/') ~ app.user.image}}">
                     </div>
                     <div class="col-4 my-auto text-left">

@@ -35,7 +35,11 @@
         {% for user in users %}
             <tr>
                 <th scope="col">{{user.id}}</th>
+                {% if user.rol == "ROLE_USER" %}
                 <th scope="col">{{user.nick}}</th>
+                {% else %}
+                <th scope="col">{{user.nick}}<span class="text-danger"> | admin</span></th>
+                {% endif %}
                 <th scope="col">{{user.email}}</th>
                 <th scope="col">{{user.registerdate|date('j/M/Y')}}</th>
                 <th scope="col">

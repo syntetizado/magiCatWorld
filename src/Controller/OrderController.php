@@ -377,15 +377,19 @@ class OrderController extends AbstractController
                     $slug=$slug."x";
                 }
                 $order->setSlug($slug);
-                $order->setSelected(true);
+                $order->setSelected(false);
                 $order->setTotalPrice(0);
                 $order->setDeliveryStatus('OPEN');
                 $order->setIdUser($user);
             }
 
+            $select = $order;
+
             $entityManager= $this->getDoctrine()->getManager();
             $entityManager->persist($order);
             $entityManager->flush();
+
+            $this->selectOrder($select,$security);
 
             return $this->redirectToRoute('cestas');
         } else {
