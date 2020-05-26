@@ -49,6 +49,10 @@ pre-logout:
 logout:
     path: /logout
 
+message:
+    path: /message
+    controller: App\Controller\AjaxController::message
+
 ########################################################
 ######################## PRODUCTOS #####################
 ########################################################
@@ -71,11 +75,31 @@ product-search:
 
 cesta:
     path: /cesta/{slug?}
-    controller: App\Controller\OrderController::addToOrder
+    controller: App\Controller\OrderController::orderShow
+
+cestas:
+    path: /cestas
+    controller: App\Controller\OrderController::orderMenu
 
 cesta-agregar:
-    path: /cesta/agregar/
-    controller: App\Controller\OrderController::addToOrder
+    path: /cesta/agregar
+    controller: App\Controller\OrderController::orderAddItem
+
+cesta-crear:
+    path: /cesta/crear
+    controller: App\Controller\OrderController::orderCreate
+
+cesta-borrar-item:
+    path: /delete-item/{product?}/{order?}
+    controller: App\Controller\OrderController::deleteOrderItem
+
+cesta-activar:
+    path: /cesta/seleccionar/{id?}
+    controller: App\Controller\OrderController::selectOrder
+
+cesta-pagar:
+    path: /cesta/seleccionar/{id?}
+    controller: App\Controller\OrderController::payOrder
 
 ########################################################
 ######################## CONTACTO ######################
@@ -85,6 +109,9 @@ contactform:
     path: /contacto
     controller: App\Controller\HomeController::sendForm
 
+information:
+    path: /quienes-somos
+    controller: App\Controller\HomeController::information
 
 ########################################################
 ######################## ADMIN #########################
@@ -141,7 +168,7 @@ delete-product:
     controller: App\Controller\AdminController::deleteProduct
 
 delete-item:
-    path: /admin/delete-product/{product?}/{order?}
+    path: /admin/delete-item/{product?}/{order?}
     controller: App\Controller\AdminController::deleteOrderItem
 
 delete-message:

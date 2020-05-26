@@ -176,4 +176,16 @@ class AjaxController extends AbstractController
             ]);
             return $response;
     }
+
+    public function message(Request $request) {
+        $response = $this->forward('App\Controller\ModalController::infoPopup', [
+            'modalTitle' => $request->get('title'),
+            'icon' => '<i class="fas fa-exclamation-circle text-info"></i>',
+            'message' => $request->get('message'),
+            'ask' => false,
+            'toggle' => '',
+            'activated' => 'yes'
+        ]);
+        return $response;
+    }
 }

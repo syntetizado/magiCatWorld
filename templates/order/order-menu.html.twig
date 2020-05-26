@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+
+<style media="screen">
+    .my-text{
+        color: black;
+    }
+
+    .altura {
+        height: 300px;
+    }
+</style>
+
+<div class="container my-5 altura">
+
+  <!--Section: Content-->
+  <section class="dark-grey-text">
+
+    <!-- Section heading -->
+    <h3 class="text-center font-weight-bold mb-5">
+		Tus cestas
+		<a href="{{path('cesta-crear')}}"><button class="ml-3 btn btn-primary">
+			Añadir Cesta <i class="ml-2 fas fa-plus"></i>
+		</button></a>
+	</h3>
+
+{% set anyorder = false %}
+{% for order in orders %}
+    {% set anyorder = true %}
+{% endfor %}
+
+{% if anyorder %}
+{% for order in orders %}
+<!-- Grid row -->
+<a class="my-text text-decoration-none" href="{{path('cesta',{'slug':order.slug}) }}"><div class="row my-text">
+
+  <div class="col-12 mb-4">
+
+	<div class="card z-depth-0 bordered border-light">
+	  <div class="card-body p-0">
+
+		<div class="row mx-0">
+
+
+
+		  <div class="col-md-8 grey lighten-4 rounded-left pt-4">
+
+			<h5 class="font-weight-bold">
+                <i class="fas fa-shopping-cart"></i>
+                {{order.name}}
+                {% if order.selected %}
+                <i class="fas fa-check text-success ml-4"></i> Cesta actual
+                {% endif %}
+            </h5>
+
+			<p class="font-weight-light text-muted mb-4"> <b class="my-text" >Dirección:</b> {{order.direction}}</p>
+		  </div>
+		  <div class="col-md-4 text-center pt-4">
+							<p class="h1 font-weight-normal">Total - {{order.totalPrice}} €</p>
+			<p class="h5 font-weight-light text-muted mb-4"></p>
+		  </div>
+
+		</div>
+	  </div>
+	</div>
+  </div>
+
+</div></a>
+<!-- Grid row -->
+{% endfor %}
+{% else %}
+<div class="content text-left">
+	<div class="row">
+		<div class="col-8">
+			<h2>No tienes ninguna cesta</h2>
+		</div>
+	</div>
+</div>
+{% endif %}
+  </section>
+  <!--Section: Content-->
+
+
+</div>
+
+{% endblock %}

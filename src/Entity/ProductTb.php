@@ -84,6 +84,8 @@ class ProductTb
 
     private $quantity;
 
+    private $total;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -197,7 +199,7 @@ class ProductTb
         return $this->features;
     }
 
-    public function setQuantity(String $quantity)
+    public function setQuantity(Float $quantity)
     {
         $this->quantity = intval($quantity);
 
@@ -207,5 +209,17 @@ class ProductTb
     public function getQuantity(): ?Int
     {
         return intval($this->quantity);
+    }
+
+    public function setTotal(Float $total)
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getTotal(): ?Float
+    {
+        return $this->total;
     }
 }

@@ -59,13 +59,6 @@ class OrderTb
     /**
      * @var string|null
      *
-     * @ORM\Column(name="payment", type="string", length=65, nullable=true)
-     */
-    private $payment;
-
-    /**
-     * @var string|null
-     *
      * @ORM\Column(name="delivery_status", type="string", length=65, nullable=true)
      */
     private $deliveryStatus;
@@ -79,6 +72,11 @@ class OrderTb
      * })
      */
     private $idUser;
+
+    /**
+     * @ORM\Column(name="selected", type="boolean", nullable=true)
+     */
+    private $selected;
 
     public function getId(): ?int
     {
@@ -145,18 +143,6 @@ class OrderTb
         return $this;
     }
 
-    public function getPayment(): ?string
-    {
-        return $this->payment;
-    }
-
-    public function setPayment(?string $payment): self
-    {
-        $this->payment = $payment;
-
-        return $this;
-    }
-
     public function getDeliveryStatus(): ?string
     {
         return $this->deliveryStatus;
@@ -181,5 +167,15 @@ class OrderTb
         return $this;
     }
 
+    public function getSelected(): ?bool
+    {
+        return $this->selected;
+    }
 
+    public function setSelected(?bool $selected): self
+    {
+        $this->selected = $selected;
+
+        return $this;
+    }
 }

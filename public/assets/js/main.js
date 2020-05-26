@@ -36,3 +36,20 @@ $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
+
+$('#messageButton').click(function(){
+	var message,title;
+	message=$('#messageButton').data('message');
+	title=$('#messageButton').data('title');
+	$.ajax({
+		type: "POST",
+		url: "message",
+		data: {message: message, title: title}, // serializes the form's elements.
+        dataType: ('html'),
+		success: function(data)
+		{
+            $('#information').html(data);
+            $('#infoModal').modal('toggle');
+		}
+    })
+})

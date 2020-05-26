@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+
+<style media="screen">
+    .my-img{
+        height: 200px;
+    }
+</style>
+
+<div class="container my-5 py-3 z-depth-1 rounded">
+
+
+  <!--Section: Content-->
+  <section class="dark-grey-text">
+<div class="row my-5">
+    <a href="{{path('cestas')}}">
+        <button class="btn btn-primary">
+            <i class="fas fa-folder-open mr-2"></i> Mis cestas
+        </button>
+    </a>
+
+    {% if order.selected %}
+        <button class="btn btn-success ml-3">
+            <i class="fas fa-check mr-2"></i> Cesta actual
+        </button>
+    {% else %}
+    <a href="{{path('cesta-activar',{'id':order.id})}}">
+        <button class="btn btn-secondary ml-3">
+            <i class="fas fa-times mr-2"></i> Seleccionar Cesta como actual
+        </button>
+    </a>
+    {% endif %}
+
+</div>
+    <!-- Shopping Cart table -->
+    <div class="table-responsive">
+
+      <table class="table product-table mb-0">
+
+        <!-- Table head -->
+        <thead class="mdb-color lighten-5">
+          <tr>
+            <th></th>
+            <th class="font-weight-bold">
+              <strong>Producto</strong>
+            </th>
+            <th></th>
+            <th class="font-weight-bold">
+              <strong>Precio</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>Cantidad</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>Subtotal</strong>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <!-- /.Table head -->
+
+        <!-- Table body -->
+        <tbody>
+            {% set anyitem = false %}
+            {% for item in items %}
+            {% set anyitem = true %}
+          <!-- row -->
+          <tr>
+            <th scope="row">
+                <div class="view ">
+                    <img src="{{asset("assets/img/product/" ~ item.image )}}" alt="" class="img-fluid my-img shadow p-3 mb-5 bg-white rounded">
+                </div>
+            </th>
+            <td>
+              <h5 class="mt-3">
+                <strong>{{item.name}}</strong>
+              </h5>
+                          <td></td>
+            </td>
+            <td>{{item.price}}</td>
+            <td>
+              <strong>{{item.quantity}}</strong>
+            </td>
+            <td class="font-weight-bold">
+              <strong>{{item.total}}</strong>
+            </td>
+            <td>
+                <a href="{{path('cesta-borrar-item',{'product':item.id,'order':order.id})}}">
+                  <button type="button" class="btn btn-sm btn-primary">
+                      <i class="fas fa-times"></i> Eliminar
+                  </button>
+                </a>
+            </td>
+          </tr>
+          <!-- row -->
+        {% endfor %}
+          <!-- boton comprar -->
+          <tr>
+            <td colspan="3"></td>
+            <td>
+              <h4 class="mt-2">
+                <strong>Total</strong>
+              </h4>
+            </td>
+            <td class="text-right">
+              <h4 class="mt-2">
+                <strong>{{order.totalPrice}} €</strong>
+              </h4>
+            </td>
+            <td colspan="3" class="text-right">
+                {% if anyitem %}
+                <a href="{{path('cesta-pagar',{'id':order.id})}}">
+                    <button class="btn btn-primary btn-rounded ml-3">
+                        Completar compra <i class="fas fa-angle-right right"></i>
+                    </button>
+                </a>
+                {% else %}
+                    <button id="messageButton" data-title="¡Ups!" data-message="¡No hay ningún producto en la cesta!" class="btn btn-primary btn-rounded ml-3">
+                        Completar compra <i class="fas fa-angle-right right"></i>
+                    </button>
+                {% endif %}
+
+            </td>
+          </tr>
+          <!-- /boton comprar -->
+
+        </tbody>
+        <!-- /Table body -->
+
+      </table>
+
+    </div>
+    <!-- /Shopping Cart table -->
+
+  </section>
+  <!--Section: Content-->
+
+
+</div>
+
+{% endblock %}

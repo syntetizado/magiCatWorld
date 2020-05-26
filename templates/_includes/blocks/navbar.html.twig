@@ -55,8 +55,13 @@
 
     <div class="login-area">
         <a href="{{path('contactform')}}"><button class="btn btn-primary">contacto</button></a>
-
-        <button class="btn btn-primary mr-2 ml-2">Cesta</button>
+        {% if app.user %}
+        <a href="{{path('cesta')}}">
+            <button class="btn btn-primary mr-2 ml-2">Cesta</button>
+        </a>
+        {% else %}
+        <button class="btn btn-primary" id="messageButton" type="button" data-title="Restringido" data-message="No has iniciado sesión!" >Cesta</button>
+        {% endif %}
         {% if app.user %}
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">
             <div class="row">

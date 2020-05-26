@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}mensaje{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+
+  <!--Section: Content-->
+  <section class="mx-md-5 dark-grey-text">
+
+  	<!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-12">
+
+        <!-- Card -->
+        <div class="card card-cascade wider reverse">
+
+          <!-- Card image -->
+          <div class="view view-cascade overlay">
+            <img class="card-img-top" src="{{asset('assets/img/gato1.jpg')}}" alt="Sample image">
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body card-body-cascade text-center">
+
+            <!-- Title -->
+            <h3 class="font-weight-bold"><a>Quienes somos</a></h3>
+
+          </div>
+          <!-- Card content -->
+
+        </div>
+        <!-- Card -->
+
+        <!-- Excerpt -->
+        <div class="mt-5">
+
+          <p>
+              Somos una empresa malagueña dedicada a la compraventa de artículos exclusivamente para gatos.
+              Nuestra meta principal es hacer que todos nuestros clientes se sientan satisfechos con el servicio
+              que ofrecemos, y consideramos a todos nuestros clientes como parte de una comunidad de amantes de
+              animales, pero especialmente de estos tan amados felinos.
+          </p>
+          <p>
+              Nos proponemos mejorar en el futuro con mucha ilusión de seguir adelante y creemos que con el apoyo
+              de nuestros clientes podemos hacer que nuestras mascotas reciban más atención y cariño, pues son
+              animales que siempre están con nosotros.
+          </p>
+
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+    <hr class="mb-5 mt-4">
+
+  </section>
+  <!--Section: Content-->
+
+
+</div>
+
+{% endblock %}

@@ -140,4 +140,8 @@ class HomeController extends AbstractController
             ]);
         }
     }
+
+    public function information() {
+        return $this->render('home/information.html.twig');
+    }
 }
