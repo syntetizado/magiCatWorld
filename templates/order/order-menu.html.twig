@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block title %}Hello OrderController!{% endblock %}
 
 {% block body %}
@@ -34,6 +36,12 @@
 
 {% if anyorder %}
 {% for order in orders %}
+
+{% if order.deliverystatus == 'OPEN' %}
+{% set operable = true %}
+{% else %}
+{% set operable = false %}
+{% endif %}
 <!-- Grid row -->
 <a class="my-text text-decoration-none" href="{{path('cesta',{'slug':order.slug}) }}"><div class="row my-text">
 
@@ -46,20 +54,40 @@
 
 
 
-		  <div class="col-md-8 grey lighten-4 rounded-left pt-4">
+		  <div class="col grey lighten-4 rounded-left pt-4">
 
 			<h5 class="font-weight-bold">
                 <i class="fas fa-shopping-cart"></i>
                 {{order.name}}
+                {% if operable %}
                 {% if order.selected %}
                 <i class="fas fa-check text-success ml-4"></i> Cesta actual
+                {% endif %}
+                {% endif %}
+
+                <span class="ml-5">
+                   <span class="ml-5">
+                      Estado:
+                   </span>
+                </span>
+                {% if order.deliverystatus == "OPEN" %}
+                    <i class="fas fa-edit text-warning ml-2"></i> Comprando
+                {% endif %}
+                {% if order.deliverystatus == "PAID" %}
+                    <i class="fas fa-money-bill-alt text-success ml-2"></i> Pagado
+                {% endif %}
+                {% if order.deliverystatus == "DELIVERING" %} En tránsito
+                    <i class="fas fa-truck text-info ml-2"></i>
+                {% endif %}
+                {% if order.deliverystatus == "CLOSED" %} Compra finalizada
+                    <i class="fas fa-check text-muted ml-2"></i>
                 {% endif %}
             </h5>
 
 			<p class="font-weight-light text-muted mb-4"> <b class="my-text" >Dirección:</b> {{order.direction}}</p>
 		  </div>
-		  <div class="col-md-4 text-center pt-4">
-							<p class="h1 font-weight-normal">Total - {{order.totalPrice}} €</p>
+		  <div class="col text-center pt-4">
+							<p class="h1 font-weight-normal"><span class="mr-4 font-weight-bold">Total</span>  {{order.totalPrice}} €</p>
 			<p class="h5 font-weight-light text-muted mb-4"></p>
 		  </div>
 

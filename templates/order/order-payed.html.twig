@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pago{% endblock %}
+
+{% block body %}
+
+<div class="content  card py-5 px-5">
+    <div class="row justify-content-center">
+        <h1><i class="fas fa-check text-success"></i> ¡Felicidades! Ya ha realizado su compra <i class="fas fa-check text-success"></i> </h1>
+
+    </div>
+    <div class="row justify-content-center">
+        <h2>La orden ha sido realizada el día: {{ "now"|date("m/d/Y") }}</h2>
+
+    </div>
+    <div class="row justify-content-center">
+        <a href="{{path('cestas')}}"><button class="btn btn-primary">ok</button> </a>
+    </div>
+</div>
+
+{% endblock %}

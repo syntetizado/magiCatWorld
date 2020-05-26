@@ -49,5 +49,95 @@
     </div>
   </section>
   <!--Section: Content-->
+</div>
+
+
+<div class="container">
+	<h2 class="text-center">Opiniones sobre el producto</h2>
+
+
+{% set anyreview = false %}
+{% for review in reviews %}
+{% set anyreview = true %}
+    <div class="mt-3"></div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="{{asset('assets/img/user/' ~ review.iduser.image)}}" class="img img-rounded img-fluid"/>
+                </div>
+                <div class="col-md-10">
+                    <h3>
+                        {{review.title}}idproduct
+                    </h3> <button class="btn btn-secondary" id="deleteButton" data-slug="{{product.slug}}" data-idreview="{{review.id}}"><i class="fas fa-trash"></i> </button>
+                    <p>
+                        {{review.iduser.name}}  ( <strong>{{review.iduser.nick}}</strong> )
+                        {% for i in 1..5 %}
+                            {% if i <= review.rating %}
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            {% else %}
+                            <span class="float-right"><i class="far fa-star"></i></span>
+                            {% endif %}
+                        {% endfor %}
+
+                   </p>
+                   <div class="clearfix"></div>
+                    <p>{{review.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% if anyreview == false %}
+No hay opiniones para este producto
+{% endif %}
+    <div class="mt-3"></div>
+<div class="card mb-5">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="{{asset('assets/img/user/' ~ app.user.image)}}" class="img img-rounded img-fluid"/>
+            </div>
+            <div class="col-md-10">
+                <label for="exampleFormControlTextarea2">{{app.user.name}} (<b> {{app.user.nick}} </b>)</label>
+
+                <!-- FORMULARIO DEL COMENTARIO -->
+                {{form_start(form)}}
+                <div class="container mt-3">
+                    <div class="row mb-4">
+                        <div class="col-auto mr-4">
+                            <label>Título</label>
+                            {{ form_widget(form.title, {'attr':{"class" : "form-control",
+                                                                "id":"validationDefault01",
+                                                                'placeholder':'Escribe un título...'}})}}
+                        </div>
+                        <div class="col-auto ">
+                            <label>Puntuación</label>
+                            {{ form_widget(form.rating, {'attr': {"class" : "form-control"}})}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ form_widget(form.description, {'attr': { "class" : "form-control rounded-4",
+                                                                        'id':'exampleFormControlTextarea2',
+                                                                        'rows':'3',
+                                                                        'placeholder':'Escribe aquí tu opinion...'}})}}
+                        </div>
+                    </div>
+                    <div class="row justify-content-end mr-2">
+                        <div class="col-5 col-md-3 col-sm-4 col-xs-6 mt-3">
+                            <button class="btn btn-primary form-control" type="submit" name="button">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+                {{form_end(form)}}
+                <!-- /FORMULARIO DEL COMENTARIO -->
+
+               <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>

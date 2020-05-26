@@ -519,7 +519,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted()) {
         if ($form->isValid()) {
 
-            $product = new ProductTb;
+            $product = new ProductTb();
 
             $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
 

@@ -82,11 +82,11 @@ cestas:
     controller: App\Controller\OrderController::orderMenu
 
 cesta-agregar:
-    path: /cesta/agregar
+    path: /cesta/agregar/item/
     controller: App\Controller\OrderController::orderAddItem
 
 cesta-crear:
-    path: /cesta/crear
+    path: /cesta/agregar/nueva-cesta
     controller: App\Controller\OrderController::orderCreate
 
 cesta-borrar-item:
@@ -98,8 +98,16 @@ cesta-activar:
     controller: App\Controller\OrderController::selectOrder
 
 cesta-pagar:
-    path: /cesta/seleccionar/{id?}
+    path: /cesta/pago/pago/{id?}
     controller: App\Controller\OrderController::payOrder
+
+cesta-pagado:
+    path: /cesta/pago/pagado/{id?}
+    controller: App\Controller\OrderController::payedOrder
+
+cesta-borrar:
+    path: /cesta/borrar/{id?}
+    controller: App\Controller\OrderController::orderDelete
 
 ########################################################
 ######################## CONTACTO ######################
@@ -112,6 +120,14 @@ contactform:
 information:
     path: /quienes-somos
     controller: App\Controller\HomeController::information
+
+########################################################
+######################## REVIEWS #######################
+########################################################
+
+review-delete:
+    path: /comentario/borrar
+    controller: App\Controller\OrderController::reviewDelete
 
 ########################################################
 ######################## ADMIN #########################

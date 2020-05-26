@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Cesta: {{order.name}}{% endblock %}
 
 {% block body %}
+
+{% if order.deliverystatus == 'OPEN' %}
+{% set operable = true %}
+{% else %}
+{% set operable = false %}
+{% endif %}
 
 <style media="screen">
     .my-img{
@@ -16,12 +22,13 @@
   <!--Section: Content-->
   <section class="dark-grey-text">
 <div class="row my-5">
+
     <a href="{{path('cestas')}}">
         <button class="btn btn-primary">
             <i class="fas fa-folder-open mr-2"></i> Mis cestas
         </button>
     </a>
-
+{% if operable %}
     {% if order.selected %}
         <button class="btn btn-success ml-3">
             <i class="fas fa-check mr-2"></i> Cesta actual
@@ -34,6 +41,14 @@
     </a>
     {% endif %}
 
+    <a href="{{path('cesta-borrar',{'id':order.id})}}">
+        <button class="btn btn-danger ml-3">
+            <i class="fas fa-times mr-2"></i> Borrar cesta
+        </button>
+    </a>
+{% else %}
+<h2 class="ml-5">¡La cesta ya ha sido pagada! ¿Quieres pagar otra vez?</h2>
+{% endif %}
 </div>
     <!-- Shopping Cart table -->
     <div class="table-responsive">
@@ -87,6 +102,7 @@
             <td class="font-weight-bold">
               <strong>{{item.total}}</strong>
             </td>
+            {% if operable %}
             <td>
                 <a href="{{path('cesta-borrar-item',{'product':item.id,'order':order.id})}}">
                   <button type="button" class="btn btn-sm btn-primary">
@@ -94,6 +110,7 @@
                   </button>
                 </a>
             </td>
+            {% endif %}
           </tr>
           <!-- row -->
         {% endfor %}
@@ -111,6 +128,7 @@
               </h4>
             </td>
             <td colspan="3" class="text-right">
+                {% if operable %}
                 {% if anyitem %}
                 <a href="{{path('cesta-pagar',{'id':order.id})}}">
                     <button class="btn btn-primary btn-rounded ml-3">
@@ -118,9 +136,11 @@
                     </button>
                 </a>
                 {% else %}
+
                     <button id="messageButton" data-title="¡Ups!" data-message="¡No hay ningún producto en la cesta!" class="btn btn-primary btn-rounded ml-3">
                         Completar compra <i class="fas fa-angle-right right"></i>
                     </button>
+                {% endif %}
                 {% endif %}
 
             </td>
