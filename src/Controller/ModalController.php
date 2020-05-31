@@ -31,7 +31,7 @@ class ModalController extends AbstractController
 
         return $this->render('modal/loginPopup.html.twig', [
             'controller_name' => 'ModalController',
-            'modalTitle' => "Registro de usuario",
+            'modalTitle' => "Iniciar sesión",
             'form' => $form->createView(),
             'icon' => "<i class='fas fa-user'></i>"
         ]);
