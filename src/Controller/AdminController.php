@@ -42,6 +42,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
+
+    //crea la página principal del panel
     public function index()
     {
         return $this->render('admin/_index.html.twig');
@@ -51,15 +53,18 @@ class AdminController extends AbstractController
     ######################## USERS ########################
     #######################################################
 
+    //muestra la vista de los usuarios
     public function users(){
         $user_repo = $this->getDoctrine()->getRepository(UserTb::class);
-        $users = $user_repo->findAll();
+        $users = $user_repo->findAll(); //recoge los usuarios
 
+        //y los envia con el renderizado de la plantilla
         return $this->render('admin/users.html.twig', [
             'users' => $users
         ]);
     }
 
+    //activa la entidad usuario que enviemos a este método
     public function activeUser(UserTb $user){
 
         if ($user->getActive())
@@ -75,6 +80,12 @@ class AdminController extends AbstractController
 
     }
 
+    /*
+        esta función es para editar un usuario existente.
+        todas las funciones de admin prácticamente son
+        idénticas, así que solo entraré en detalle de
+        las que no se hayan visto en otras clases
+    */
     public function editUser(UserTb $user,UserPasswordEncoderInterface $encoder, Request $request){
 
 
@@ -170,6 +181,7 @@ class AdminController extends AbstractController
             // Recuperamos el archivo
             $image = $form->get('image')->getData();
 
+            //si existe imagen
             if ($image){
                 // Revisamos la extensión y creamos el nombre del archivo
                 $image_name = $user->getSlug() . '.' . $image->guessExtension();
@@ -202,9 +214,8 @@ class AdminController extends AbstractController
 		}
     }
 
+    //esta función es para crear usuarios
     public function createUser(UserPasswordEncoderInterface $encoder, Request $request){
-
-
         $form = $this->createFormBuilder()
 			->add('nick', TextType::class)
 			->add('email', TextType::class)
@@ -348,6 +359,7 @@ class AdminController extends AbstractController
     ####################### PRODUCTS ######################
     #######################################################
 
+    //muestra una lista con todos los productos existentes
     public function products(){
         $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
         $products = $product_repo->findAll();
@@ -357,6 +369,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //activa el producto al que se apunta
     public function activeProduct(ProductTb $product){
 
         if ($product->getActive())
@@ -371,6 +384,7 @@ class AdminController extends AbstractController
         return $this->RedirectToRoute('admin-products');
     }
 
+    //esta función borra el producto al que apuntamos
     public function deleteProduct(ProductTb $product){
 
         $items = $this  ->getDoctrine()
@@ -393,6 +407,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //editamos un producto existente
     public function editProduct(ProductTb $product,Request $request){
         $reviews= $this ->getDoctrine()
                         ->getRepository(ReviewTb::class)
@@ -491,6 +506,7 @@ class AdminController extends AbstractController
 		}
     }
 
+    //para crear un producto nuevo
     public function createProduct(CategoryTb $category = NULL,Request $request){
 
         $form = $this->createFormBuilder()
@@ -593,6 +609,7 @@ class AdminController extends AbstractController
     ####################### REVIEWS #######################
     #######################################################
 
+    //muestra todos los comentarios
     public function reviews(){
         $review_repo = $this->getDoctrine()->getRepository(ReviewTb::class);
         $reviews = $review_repo->findAll();
@@ -602,6 +619,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //sirve para banear comentarios ofensivos.
+    //si el admin lo ve oportuno, puede ocultar el comentario
+    //además el usuario no podrá volver a crear otro en el mismo producto
     public function banReview(ReviewTb $review){
 
         if ($review->getBanned())
@@ -616,6 +636,7 @@ class AdminController extends AbstractController
         return $this->RedirectToRoute('admin-reviews');
     }
 
+    //simplemente muestra el producto objetivo
     public function showReview(ReviewTb $review){
                 return $this->render('admin/review-show.html.twig', [
                     'review' => $review
@@ -625,12 +646,8 @@ class AdminController extends AbstractController
     #######################################################
     ####################### ORDERS ########################
     #######################################################
-    public function varTest($var){
-        die($this->render('test.html.twig',[
-            'var' => $var
-        ]));
-    }
 
+    //actualiza una orden. Esta función es identica a la de OrderController
     public function updateOrder(OrderTb $order){
 
         $items = $this  ->getDoctrine()

@@ -14,8 +14,11 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category", name="category")
      */
+
+    //renderiza la categoría seleccionada
     public function category(CategoryTb $category = NULL)
     {
+        //Si la categoría no existe devuelve error
         if ($category == NULL || !$category){
             return $this->render('category/index.html.twig', [
                 "number" => "404",
@@ -23,9 +26,11 @@ class CategoryController extends AbstractController
           ]);
         }
 
+        //si existe, busca los productos que hay en ella
         $product_repo = $this->getDoctrine()->getRepository(ProductTb::class);
         $products = $product_repo->findBy(['category' => $category]);
 
+        //y los pasa para renderizar la plantilla
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',
             'category' => $category,

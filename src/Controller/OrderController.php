@@ -45,6 +45,7 @@ class OrderController extends AbstractController
         return $orders;
     }
 
+    //Devuelve una orden cualquiera del usuario actual
     public function myOrder(Security $security){
         $order = $this ->getDoctrine()
                         ->getRepository(OrderTb::class)
@@ -52,6 +53,7 @@ class OrderController extends AbstractController
         return $order;
     }
 
+    //Devuelve la orden seleccionada del usuario actual
     public function currentOrder(Security $security){
         $order = $this ->getDoctrine()
                         ->getRepository(OrderTb::class)
@@ -62,21 +64,26 @@ class OrderController extends AbstractController
     //devuelve los items de una cesta
     public function itemsOnOrder(OrderTb $order){
 
+        //Primero busca los productos de una cesta
         $search = $this  ->getDoctrine()
                         ->getRepository(ProductsonorderTb::class)
                         ->findBy(['idOrder' => $order->getId()]);
         $items=[];
+
+        //y en cada item,
         foreach ($search as $item) {
             $quantity = $item->getQuantity();
             $item = $this   ->getDoctrine()
                             ->getRepository(ProductTb::class)
                             ->findOneBy(['id' => $item->getIdProduct()]);
+            //agrega la cantidad al mismo producto,
+            //para pasarlo a donde sea necesario
             $item->setQuantity($quantity);
             $item->setTotal($quantity*$item->getPrice());
             $items[] = $item;
-
-
         }
+
+        //y devuelve el array de items
         return $items;
     }
 
@@ -107,28 +114,34 @@ class OrderController extends AbstractController
     //actualizamos el precio y borramos registros de la relacion many<->many
     public function updateOrder(OrderTb $order){
 
+        //recoge los items de la orden
         $items = $this  ->getDoctrine()
                             ->getRepository(ProductsonorderTb::class)
                             ->findBy(['idOrder' => $order->getId()]);
 
-        $totalPrice = 0;
+        $totalPrice = 0;//inicia el precio en 0
         foreach ($items as $item) {
-            $price = $this  ->getDoctrine()
-                            ->getRepository(ProductTb::class)
-                            ->findOneBy(['id' => $item->getIdProduct()])
-                            ->getPrice();
 
+            //recogemos las unidades y el precio de 1 item.
             $unitPrice = (Float)$item->getIdProduct()->getPrice();
             $quantity = (Int)$item->getQuantity();
 
+            //multiplicando el precio del producto por su unidad
+            //obtenemos el precio total de ese producto
+            //vamos sumando todos los items.
             $totalPrice = floatval($totalPrice) + number_format(floatval($unitPrice)*floatval($quantity), 2,".","");
         }
+        //el precio total será la suma de todos los productos
         $order->setTotalPrice($totalPrice);
 
+        //y se actualiza la base de datos con el precio nuevo
         $em = $this->getDoctrine()->getManager();
         $em->persist($order);
         $em->flush();
 
+        //también se actualizan los items
+        //si se ve que alguno de ellos
+        //no tiene producto o cesta asociados se borra
         foreach ($items as $item) {
             if ($item->getIdProduct() == NULL || $item->getIdProduct() == "") {
                 $em->remove($item);
@@ -143,29 +156,35 @@ class OrderController extends AbstractController
 
     //con esta funcion seleccionamos la cesta actual
     //como la que estamos usando actualmente
-
     public function selectOrder(OrderTb $order,Security $security){
 
+        //primero recogemos las cesta del usuario activo
         $orders = $this->myOrders($security);
         $em = $this->getDoctrine()->getManager();
 
+        //hacemos que todas las cestas se deseleccionen
         foreach ($orders as $ord) {
             $ord->setSelected(false);
             $em->persist($ord);
         }
 
+        //y seleccionamos solo la que queremos
         $order->setSelected(true);
         $em->persist($order);
         $em->flush();
 
+        //tras esto nos redireccionamos a la cesta seleccionada
         return $this->RedirectToRoute('cesta');
     }
 
+    //devuelve el item con la cantidad si existe, o falso si no.
     public function productIteminOrder(ProductTb $product, Security $security){
 
+        //recoge los items de la orden seleccionada
         $itemsInCurrentOrder = $this->itemsOnOrder($this->currentOrder($security));
 
-        $found = false;
+        $found = false; //inicia la variable found
+        //busca el item
         foreach ($itemsInCurrentOrder as $item) {
             if ($item->getId() == $product->getId()) {
                 $found = true;
@@ -173,43 +192,52 @@ class OrderController extends AbstractController
             }
         }
 
-        if ($found) {
-            return $targetItem;
+
+        if ($found) { //si lo ha encontrado
+            return $targetItem; //lo retorna
         } else {
-            return false;
+            return false; //sino, devuelve falso
         }
     }
 
+    //devuelve el recibo, donde aparecen los items con sus precios finales
     public function payOrder(OrderTb $order,Security $security){
 
+        //recoge todos los items
         $item_repo = $this->getDoctrine()->getRepository(ProductsonorderTb::class);
         $items = $item_repo->findBy([ 'idOrder' => $order->getId() ]);
 
+        //y renderiza la plantilla con el recibo
         return $this->render('order/order-pay.html.twig',[
             "order" => $order,
             'items' => $items
         ]);
-        //return $this->RedirectToRoute('cesta-pagada');
     }
 
+    //Si se realiza el pago, cambia el estado de la cesta
+    // y muestra un mensaje en una nueva plantilla
     public function payedOrder(OrderTb $order,Security $security){
 
+        //si hay usuario activo
         if ($security->getUser()) {
             $status = $order->getDeliveryStatus();
-            if ($status == "OPEN") {
-                $status = "PAID";
+            if ($status == "OPEN") { // y la orden está abierta
+                $status = "PAID"; //pasa a estar pagada
                 $order->SetDeliveryStatus($status);
-                $order->SetDate(new \DateTime());
+                $order->SetDate(new \DateTime()); //a fecha de hoy
             }
 
+            //introducimos los cambios en la BD
             $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->flush();
 
+            //y devolvemos el render de la plantilla
             return $this->render('order/order-payed.html.twig',[
                 "order" => $order
             ]);
         } else {
+            //si no hay usuario volvemos a la página de inicio
             return $this->RedirectToRoute('index');
         }
     }
@@ -222,9 +250,10 @@ class OrderController extends AbstractController
     //los carritos que tenemos
     public function orderMenu(Security $security){
 
-        if ($security->getUser()) {
-            $orders = $this->myOrders($security);
+        if ($security->getUser()) { //si existe usuario activo
+            $orders = $this->myOrders($security); //devuelve sus cestas
 
+            // y las muestra en el menú de órdenes
             return $this->render('order/order-menu.html.twig', [
                 'orders' => $orders
             ]);
@@ -237,7 +266,6 @@ class OrderController extends AbstractController
     //se activa esta funcion y nos devuelve la página del carrito
     public function orderShow(OrderTb $order = NULL,Security $security)
     {
-
 
         if ($security->getUser()) {
             if ($order == NULL || !$order) {
@@ -274,82 +302,95 @@ class OrderController extends AbstractController
     //esta funcion añade un item al carrito
     public function orderAddItem(Request $request,Security $security)
     {
+        //primero recoge el producto de la BD
+        //a través del request GET
         $em = $this->getDoctrine()->getManager();
         $product = $this->getDoctrine()
                         ->getRepository(ProductTb::class)
                         ->findOneBy(['id'=> $request->query->get('product-id')]);
-        if ($security->getUser() || !$product || $product == NULL) {
+
+        //despues comprueba si hay usuario activo
+        if ($security->getUser()) {
+
+            //recoge la cantidad
             $quantity = $request->query->get('quantity');
 
+            //busca el item en la cesta
             $found = $this->productIteminOrder($product,$security);
 
-
-
-
-
-            if ($found) {
+            if ($found) { //si existe
                 $item = $this   ->getDoctrine()
                                 ->getRepository(ProductsonorderTb::class)
                                 ->findOneBy(['idProduct'=> $product->getId()]);
                 $quantity = $product->getQuantity()+$quantity;
+                //le añade la cantidad
 
+                //y lo agrega a la query
                 $item->setQuantity($quantity);
                 $em->persist($item);
 
             } else {
+                //si no existe crea un nuevo item
                 $newItem = new ProductsonorderTb();
 
                 $newItem->setQuantity($quantity);
                 $newItem->setIdProduct($product);
                 $newItem->setIdOrder($this->currentOrder($security));
                 $em->persist($newItem);
+                //le agrega todos los datos a la query
             }
 
-
-
-
-
-
+            //y lo carga en la BD
             $em->flush();
 
-
+            //después redirige de nuevo al producto donde estabamos
             return $this->redirect("/producto/".$product->getSlug(), 308);
         } else {
             return $this->RedirectToRoute('index');
         }
     }
 
+    //borra una orden de la BD
     public function orderDelete(OrderTb $order, Security $security){
 
+        //si es un usuario logueado
         if ($security->getUser()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($order);
             $em->flush();
+            //puede borrar su orden
         }
-
+        //y volver al menú de cestas
         return $this->RedirectToRoute('cestas');
     }
 
+    //Borra un comentario de un producto
     public function reviewDelete(Request $request, Security $security){
 
+        //recoge el id del comentario en el request
         $request->query->get('idreview');
         $review = $this ->getDoctrine()
                         ->getRepository(ReviewTb::class)
                         ->findOneBy([
                             'id' => $request->query->get('idreview')]);
+        //para después encontrarlo en la base de datos
 
+        //si existe un usuario activo puede borrar el comentario
         if ($security->getUser()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($review);
             $em->flush();
         }
 
+        //y redirige de vuelta a la url donde estabamos
         $url="/producto/".$request->query->get('slug');
         return $this->redirect($url, 308);
     }
 
+    //Este es el formulario para crear cestas
     public function orderCreate(Request $request, Security $security){
 
+        //creamos el formulario
         $form = $this->createFormBuilder()
             ->add('name', TextType::class)
             ->add('direction', TextType::class,['required' => false])
@@ -364,10 +405,14 @@ class OrderController extends AbstractController
 
             $order = new OrderTb();
 
+            //se recoge el repositorio de las cestas
             $order_repo = $this->getDoctrine()->getRepository(OrderTb::class);
-
+            //se comprueba si el nombre es nulo, si no es así se procede
             if ($form->get('name')->getData() != NULL) {
+
                 $order->setName($form->get('name')->getData());
+                //se forma un slug a partir del nick
+                // de usuario y nombre de orden
                 $slug = strtolower($user->getNick().'_'.$order->getName());
                 $search = ['/', ',', '.','*',' ', 'á', 'é', 'í', 'ó', 'ú'];
                 $replace = ['', '', '','','-', 'a', 'e', 'i', 'o', 'u'];
@@ -383,21 +428,24 @@ class OrderController extends AbstractController
                 $order->setIdUser($user);
             }
 
-            $select = $order;
+            $select = $order;   // prevención por si
+                                // entityManager modifica la entidad
 
             $entityManager= $this->getDoctrine()->getManager();
             $entityManager->persist($order);
-            $entityManager->flush();
+            $entityManager->flush(); // se carga todo en la base de datos
 
             $this->selectOrder($select,$security);
+            //seleccionamos la orden actual
+            //esta funcion ya existia más arriba
 
+            //y volvemos a las cestas tras crearla
             return $this->redirectToRoute('cestas');
         } else {
+            //si no se envió el formulario, se crea el mismo
             return $this->render('order/order-create.html.twig', [
                 'form' => $form->createView()
             ]);
         }
     }
-
-
 }
