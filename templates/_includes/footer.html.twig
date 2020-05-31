@@ -2,7 +2,11 @@
     <ul class="footer-options">
       <li><a href="{{path('information')}}">Quienes somos</a></li>|
       <li><a href="{{path('contactform')}}">Contacto</a></li>|
+      {% if app.user %}
       <li><a href="{{path('cesta')}}">Cesta</a></li>
+      {% else %}
+      <li><a href="{{path('cesta')}}" id="messageButton" data-title="Restringido" data-message="No has iniciado sesión!">Cesta</a></li>
+      {% endif %}
     </ul>
 
     <div class="footer-copyright">

@@ -83,7 +83,6 @@ $('#messageButton').click(function(){
         dataType: ('html'),
 		success: function(data)
 		{
-            alert(data)
             $('#information').html(data);
             $('#infoModal').modal('toggle');
 		}
