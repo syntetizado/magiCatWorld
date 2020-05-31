@@ -72,8 +72,9 @@ $( document ).ready(function() {
     });
 });
 
-$('#messageButton').click(function(){
+$('#messageButton').click(function(e){
 	var message,title;
+    e.preventDefault();
 	message=$('#messageButton').data('message');
 	title=$('#messageButton').data('title');
 	$.ajax({

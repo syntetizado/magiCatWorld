@@ -4,10 +4,10 @@
 
 {% block body %}
 
-{% for product in products %}
+
 	<div class="mx-4 my-4">
-		{% include '_includes/blocks/products-search.html.twig' with {'product':product} %}
+		{% include '_includes/blocks/products-search.html.twig' with {'products':products,'search':search} %}
 	</div>
-{% endfor %}
+
 
 {% endblock %}

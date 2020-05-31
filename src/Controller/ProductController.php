@@ -159,20 +159,10 @@ class ProductController extends AbstractController
         ]);
     }
 
-    public function productCard($product,$height = NULL){
-
-        $trimNumber=100;
-
-        if ( strlen( $product->getDescription() ) > $trimNumber ){
-            $trimmedDescription=substr($product->getDescription(), 0, $trimNumber);
-        } else {
-            $trimmedDescription = NULL;
-        }
+    public function productCard($product){
 
         return $this->render('_includes/blocks/product-minicard.html.twig', [
-            'product' => $product,
-            'height' => $height,
-            'trimmedDescription' => $trimmedDescription
+            'product' => $product
         ]);
     }
 
@@ -196,7 +186,8 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/product-search.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'search' => $search
         ]);
     }
 }

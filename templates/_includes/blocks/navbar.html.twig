@@ -54,16 +54,15 @@
     </div>
 
     <div class="login-area">
-        <a href="{{path('contactform')}}"><button class="btn btn-primary">contacto</button></a>
         {% if app.user %}
         <a href="{{path('cesta')}}">
-            <button class="btn btn-primary mr-2 ml-2">Cesta</button>
+            <button class="btn btn-primary mx-2 to-this">Cesta</button>
         </a>
         {% else %}
-        <button class="btn btn-primary" id="messageButton" data-title="Restringido" data-message="No has iniciado sesión!" >Cesta</button>
+        <button class="btn btn-secondary get-this mr-2" id="messageButton" data-title="Restringido" data-message="No has iniciado sesión!" >Cesta</button>
         {% endif %}
         {% if app.user %}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">
+        <button type="button" class="btn btn-primary get-this" data-toggle="modal" data-target="#userModal">
             <div class="row">
                 <span class="ml-2 mr-3 my-auto">{{app.user.nick}}</span>
                 <img class="login-area-image mr-2" src="{{asset('assets/img/user/') ~ app.user.image}}">

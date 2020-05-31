@@ -16,9 +16,11 @@
     <!-- Card content -->
     <div class="card-body text-center">
       <!-- Category & Title -->
+      {% if product.category is defined %}
       <a href="/categoria/{{product.category.slug}}" class="text-primary text-decoration-none">
         <h6>{{product.category.name}}</h6>
       </a>
+      {% endif %}
       <h5 class="mb-3">
         <strong>
           <a href="/producto/{{product.slug}}" class="text-primary text-decoration-none">{{product.name}}</a>
