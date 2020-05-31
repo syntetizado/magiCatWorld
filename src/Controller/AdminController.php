@@ -699,6 +699,9 @@ class AdminController extends AbstractController
         $em->flush();
     }
 
+    //otra funcion copiada de OrderController
+    //no se como hacer referencia a la otra clase
+    //sin liarla en este sistema de archivos
     public function updateOrders($orders){
         $orders = $this ->getDoctrine()
                         ->getRepository(OrderTb::class)
@@ -733,6 +736,7 @@ class AdminController extends AbstractController
 
     }
 
+    //esta es una función derivada que actualiza todas las cestas
     public function updateAllOrders(){
         $orders = $this ->getDoctrine()
                         ->getRepository(OrderTb::class)
@@ -741,6 +745,7 @@ class AdminController extends AbstractController
         $this->updateOrders($orders);
     }
 
+    //muestra una lista con todas las ordenes
     public function orders(){
         $orders = $this ->getDoctrine()
                         ->getRepository(OrderTb::class)
@@ -753,6 +758,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //activa la orden a la que apuntamos
     public function activeOrder(OrderTb $order){
 
         $this->updateOrder($order);
@@ -769,6 +775,7 @@ class AdminController extends AbstractController
         return $this->RedirectToRoute('admin-orders');
     }
 
+    //borra una orden de la BD
     public function deleteOrder(OrderTb $order){
 
         $em = $this->getDoctrine()->getManager();
@@ -780,6 +787,7 @@ class AdminController extends AbstractController
         return $this->RedirectToRoute('admin-orders');
     }
 
+    //de nuevo, función de OrderController
     public function deleteOrderItem( $product, $order){
 
         $list_repo = $this->getDoctrine()->getRepository(ProductsonorderTb::class);
@@ -798,6 +806,7 @@ class AdminController extends AbstractController
         return $this->RedirectToRoute('admin-orders');
     }
 
+    //edita una de las ordenes
     public function editOrder(OrderTb $order,Request $request, UserPasswordEncoderInterface $encoder){
 
         $products=[];
@@ -884,6 +893,7 @@ class AdminController extends AbstractController
     ####################### MESSAGES ######################
     #######################################################
 
+    //muestra los mensajes del formulario de contacto
     public function messages(){
         $message_repo = $this->getDoctrine()->getRepository(ContactformTb::class);
         $messages = $message_repo->findAll();
@@ -893,6 +903,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //borra uno de los mensajes, al que apuntamos
     public function deleteMessage(ContactformTb $message){
 
         $em = $this->getDoctrine()->getManager();
@@ -902,6 +913,7 @@ class AdminController extends AbstractController
         return $this->RedirectToRoute('admin-messages');
     }
 
+    //muestra el mensaje seleccionado
     public function showMessage(ContactformTb $message){
 
         return $this->render('admin/message-show.html.twig', [
@@ -913,6 +925,7 @@ class AdminController extends AbstractController
     ####################### CATEGORIES ####################
     #######################################################
 
+    //muestra una lista con todas las categorías existentes
     public function categories(){
         $category_repo = $this->getDoctrine()->getRepository(CategoryTb::class);
         $categories = $category_repo->findAll();
@@ -922,6 +935,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //borra una de las categorías
     public function deleteCategory(CategoryTb $category){
 
         $em = $this->getDoctrine()->getManager();
@@ -936,6 +950,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //edita la categoría que seleccionemos
     public function editCategory(CategoryTb $category,Request $request){
 
         $category_repo = $this->getDoctrine()->getRepository(CategoryTb::class);
@@ -1030,6 +1045,7 @@ class AdminController extends AbstractController
         }
     }
 
+    //esto crea una categoría
     public function createCategory(Request $request){
 
         $category_repo = $this->getDoctrine()->getRepository(CategoryTb::class);
