@@ -36,6 +36,9 @@ class ProductController extends AbstractController
     }//$this->varTest($orders);
 
     public function userHasReview($product,$security){
+        if (!$security->getUser()) {
+            return false;
+        }
         $userId = $security->getUser()->getId();
         $review = $this ->getDoctrine()
                         ->getRepository(ReviewTb::class)

@@ -78,11 +78,12 @@ $('#messageButton').click(function(){
 	title=$('#messageButton').data('title');
 	$.ajax({
 		type: "POST",
-		url: "message",
+		url: "/message",
 		data: {message: message, title: title}, // serializes the form's elements.
         dataType: ('html'),
 		success: function(data)
 		{
+            alert(data)
             $('#information').html(data);
             $('#infoModal').modal('toggle');
 		}
